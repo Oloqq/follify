@@ -1,7 +1,7 @@
 import { equal } from "assert";
 
-describe("bruh", () => {
-  it("bruhs", () => {
+describe("nowy uzytkownik", () => {
+  it("can log successsfulylyly", () => {
     equal(true, true);
   });
 });
