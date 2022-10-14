@@ -1,0 +1,5 @@
+.*
+!.gitignore
+!.mocharc.json
+
+node_modules
