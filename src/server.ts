@@ -15,7 +15,7 @@ app.get('/', (req: Request, res: Response)=> {
 app.get('/testAPI', (req: Request, res: Response)=> {
   res.send("BRUH")
 });
-
+// check if port defined
 var listener = app.listen(process.env.PORT, () => {
   console.log('started');
 })
