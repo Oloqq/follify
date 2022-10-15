@@ -1,10 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
 import { Component } from "react"
-import { ReactSession } from 'react-client-session';
-
-ReactSession.setStoreType("sessionStorage");
-ReactSession.set("userid", "Bob");
 
 class App extends Component {
   constructor(props) {
@@ -16,6 +12,8 @@ class App extends Component {
 
     // This binding is necessary to make `this` work in the callback
     this.dynamicAPI = this.dynamicAPI.bind(this);
+    this.inc = this.inc.bind(this);
+    this.dec = this.dec.bind(this);
   }
 
   callAPI() {
@@ -24,7 +22,21 @@ class App extends Component {
       .then(res => this.setState({ apiResponse: res }));
   }
 
+  inc() {
+    // NOTE calls to our backend look like this. {credentials: "include", mode: "cors"} is mandatory
+    fetch("http://localhost:5000/inc", { method: "GET", credentials: "include", mode: "cors"})
+      .then(res => res.text())
+      .then(res => this.setState({ button: "num: " + res }));
+  }
+
+  dec() {
+    fetch("http://localhost:5000/dec", { method: "GET", credentials: "include", mode: "cors"})
+      .then(res => res.text())
+      .then(res => this.setState({ button: "num: " + res }));
+  }
+
   dynamicAPI() {
+    // calls like this do not send session data, so can be used only to get public resources
     fetch("http://localhost:5000/testAPI")
       .then(res => res.text())
       .then(res => this.setState({ button: "received: " + res }));
@@ -66,6 +78,9 @@ class App extends Component {
             >
             <button>Playlist now</button>
           </a>
+
+          <button onClick={this.inc}> inc </button>
+          <button onClick={this.dec}> dec </button>
         </header>
       </div>
     );

@@ -15,9 +15,34 @@ app.use(session({
   saveUninitialized: true,
   resave: true,
 }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req: Request, res: Response)=> {
-  res.send("bruh");
+app.get("/inc", (req: Request, res: Response)=> {
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  if (req.session.num == undefined) {
+    req.session.num = 1;
+    res.send(req.session.num + "");
+  }
+  else {
+    req.session.num += 1;
+    res.send(req.session.num + "");
+  }
+});
+
+app.get("/dec", (req: Request, res: Response)=> {
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  if (req.session.num == undefined) {
+    req.session.num = 0;
+    res.send(req.session.num + "");
+  }
+  else {
+    req.session.num -= 1;
+    console.log(req.session);
+    res.send(req.session.num + "");
+  }
 });
 
 app.get("/testAPI", (req: Request, res: Response)=> {
