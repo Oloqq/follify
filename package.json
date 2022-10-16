@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node-dev src/server.ts",
     "build": "tsc -p tsconfig.json",
-    "test": "mocha --recursive"
+    "test": "mocha --recursive",
+    "db": "node ./dbfuncs/manage.js"
   },
   "repository": {
     "type": "git",

@@ -49,6 +49,6 @@ rl.question('Query: ', foo);
 
 
 rl.on("close", function() {
-	console.log("\nBYE BYE !!!");
+	console.log("\nnaura");
 	process.exit(0);
 });
