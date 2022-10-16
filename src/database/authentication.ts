@@ -23,4 +23,34 @@ export class AuthDB {
       });
     }
   }
+
+  putUser(id: any, accessToken: any, expiry: any, refreshToken: any) {
+    var sql = `INSERT INTO user_auth(id, access_token, expiry, refresh_token)
+      VALUES (?, ?, ?, ?)
+      ON CONFLICT(id) DO UPDATE
+        SET access_token=?2, expiry=?3, refresh_token=?4
+        WHERE id=?1`;
+    this.db.run(sql, [id, accessToken, expiry, refreshToken], (err: any) => {
+      if (err) {
+        log.error('Failed to put a user. ', err);
+      } else {
+        log.info('User data upserted for: ', id);
+      }
+    });
+  }
+
+  getUser(id: any) {
+    var sql = `SELECT * FROM user WHERE id=${id}`;
+    return new Promise((resolve, reject) =>{
+      this.db.get(sql, (err: any, row: any)=>{
+        if (err) {
+          log.error('Failed to get user data.', err);
+          reject(false);
+        }
+        resolve(row);
+      });
+    });
+  }
 }
+
+export default AuthDB;
