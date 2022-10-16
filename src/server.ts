@@ -1,4 +1,4 @@
-import "./environment";
+import env from "./environment";
 import express from "express";
 import session from "express-session";
 import cors from "cors";
@@ -18,7 +18,7 @@ app.use(session({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-initRoutes(app);
+initRoutes(app, env);
 
 app.listen(process.env.PORT, () => {
   log.info(`Follify back-end started on port ${process.env.PORT}`);

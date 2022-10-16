@@ -1,11 +1,15 @@
 import { Express, Request, Response } from "express";
-import temporary from "./temporary";
-import login from "./login";
+import { Environment} from "environment"
 import "./sessionData";
 
-export function initRoutes(app: Express) {
+import temporary from "./temporary";
+import login from "./login";
+import callback from "./callback";
+
+export function initRoutes(app: Express, env: Environment) {
   temporary(app);
   login(app);
+  callback(app);
 }
 
 export default initRoutes;

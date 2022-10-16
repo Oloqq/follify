@@ -1,28 +1,16 @@
 import { expect } from "chai";
-import "../src/environment"
+import env from "../src/environment"
 import express from "express";
 import initRoutes from "../src/routes/setup"
 
 describe("app initialization", () => {
   it("should set environment variables in dev environment", () => {
-    if (process.env.NODE_ENV !== "production") {
-      for (var name of [
-        "NODE_ENV",
-        "PORT",
-        "SPOTIFY_CLIENT_ID",
-        "SPOTIFY_CLIENT_SECRET",
-        "CALLBACK",
-        "FRONTEND",
-        "SESSION_SECRET",
-      ]) {
-        expect(process.env[name]!).to.be.a("string");
-      }
-    }
+    expect(env).include.keys("clientId", "clientSecret", "callback", "nodeEnv", "port", "frontend", "sessionSecret");
   });
 
   it("should set up all routes, and no additional ones", () => {
     const app = express();
-    initRoutes(app);
+    initRoutes(app, env);
     var route: any;
     var routes: any[] = [];
 
@@ -38,18 +26,20 @@ describe("app initialization", () => {
     });
 
     let methods: { [key: string]: { [methodName: string]: boolean } } = {
+      "/": { get: true },
       "/login": { get: true },
       "/inc": { get: true },
       "/dec": { get: true },
-      //TODO: API still has to be defined
+      "/callback": { get: true },
+      "/testAPI": { get: true },
     }
 
-    for (let key in methods) {
-      let path = routes.find((route) => {
-        return route.path === key;
-      })
-      expect(path, `unexpected route: ${key}`).not.to.be.undefined;
-      expect(path.methods).to.be.deep.eq(methods[key]);
+    for (let route of routes) {
+      expect(route.path in methods).eq(true, `extra route ${route.path}: ${route.methods}`);
+      expect(route.methods).deep.eq(methods[route.path], `incorrect methods ${route.path}: ${route.methods}`);
+      delete methods[route.path];
     }
+
+    expect(Object.keys(methods).length).eq(0, `at least one route is not implemented: ${JSON.stringify(methods)}`);
   });
 });
