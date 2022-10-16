@@ -3,7 +3,7 @@ import express from "express";
 import session from "express-session";
 import cors from "cors";
 import initRoutes from "./routes/setup"
-import log from "./log"
+import log from "./logs"
 
 const app = express();
 app.use(cors());

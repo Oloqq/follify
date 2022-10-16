@@ -18,3 +18,16 @@ function assert(variable: string) {
   assert("FRONTEND");
   assert("SESSION_SECRET");
 })();
+
+import fs from "fs";
+(function verifyFilesystem() {
+  const logdir = './logs';
+  if (!fs.existsSync(logdir)){
+      fs.mkdirSync(logdir, { recursive: true });
+  }
+
+  const dbdir = './.data';
+  if (!fs.existsSync(dbdir)){
+    fs.mkdirSync(dbdir, { recursive: true });
+  }
+})

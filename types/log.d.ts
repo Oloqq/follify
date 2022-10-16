@@ -1,4 +1,4 @@
-import '../src/log';
+import 'logs';
 
 interface Logger {
   info: function (...string): void;
