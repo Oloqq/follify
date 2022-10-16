@@ -3,3 +3,4 @@
 !.mocharc.json
 
 node_modules
+logs
