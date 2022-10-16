@@ -3,7 +3,7 @@ import "../src/environment"
 import express from "express";
 import initRoutes from "../src/routes/setup"
 
-describe("initialization", () => {
+describe("app initialization", () => {
   it("should set environment variables in dev environment", () => {
     if (process.env.NODE_ENV !== "production") {
       for (var name of [
@@ -37,10 +37,10 @@ describe("initialization", () => {
       }
     });
 
-    let methods: { [key: string] : { [methodName: string] : boolean}} = {
-      "/login": {get: true},
-      "/inc": {get: true},
-      "/dec": {get: true},
+    let methods: { [key: string]: { [methodName: string]: boolean } } = {
+      "/login": { get: true },
+      "/inc": { get: true },
+      "/dec": { get: true },
       //TODO: API still has to be defined
     }
 
@@ -51,7 +51,5 @@ describe("initialization", () => {
       expect(path, `unexpected route: ${key}`).not.to.be.undefined;
       expect(path.methods).to.be.deep.eq(methods[key]);
     }
-
   });
-
 });
