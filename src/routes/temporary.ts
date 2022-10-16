@@ -2,6 +2,10 @@ import { Express, Request, Response } from "express";
 import "./sessionData";
 
 export function initRoutes(app: Express) {
+  app.get("/", (req: Request, res: Response) => {
+    res.sendFile(`${global.appRoot}/views/index.html`);
+  })
+
   app.get("/inc", (req: Request, res: Response)=> {
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");

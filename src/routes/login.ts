@@ -72,6 +72,7 @@ function requestToken(code: string): Promise<string> {
         .then((profile: UserProfile) => {
           log.info(profile.id);
         })
+        .catch();
       })
   })
 }

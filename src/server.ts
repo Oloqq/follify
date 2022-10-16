@@ -2,8 +2,11 @@ import "./environment";
 import express from "express";
 import session from "express-session";
 import cors from "cors";
+import path from "path"
 import initRoutes from "./routes/setup"
 import log from "./logs"
+
+global.appRoot = path.resolve(__dirname);
 
 const app = express();
 app.use(cors());
