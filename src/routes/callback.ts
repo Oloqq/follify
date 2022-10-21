@@ -19,17 +19,22 @@ export function initRoutes(app: Express) {
       return;
     }
 
-    try {
-      let authData = await requestToken(req.query.code);
-      let profile = await getUserInfo(authData.access_token)
-      log.info(profile.id);
+    var authData: AuthData;
+    requestToken(req.query.code)
+    .then(data => {
+      authData = data;
+      return getUserInfo(authData.access_token)
+    })
+    .then(profile => {
       req.session.userid = profile.id;
+      saveUserInfo(profile, authData);
       res.redirect("/");
-
-    } catch (error) {
-      log.error("callback failed");
+    })
+    .catch(err => {
+      log.error(`Callback failed ${err}`);
       //TODO res.redirect("500 error page")
-    }
+      res.redirect("https://www.youtube.com/watch?v=kpwNjdEPz7E");
+    })
   });
 }
 
@@ -75,7 +80,8 @@ function getUserInfo(token: string): Promise<UserProfile> {
   })
 }
 
-function putUserInfo() {
+function saveUserInfo(profile: UserProfile, authData: AuthData) {
+  log.info(`"saving" user info ${profile.id}, ${authData.access_token}`);
   //   let profile = JSON.parse(result.data.toString());
   //   putUser(profile.id, authData.access_token, authData.expires_in, authData.refresh_token);
   //   // db.putUser(profile.id, authData.access_token, expiry.toUTCString(), authData.refresh_token);
