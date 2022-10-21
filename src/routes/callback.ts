@@ -46,7 +46,11 @@ function requestToken(code: string): Promise<string> {
         .then((profile: UserProfile) => {
           log.info(profile.id);
         })
-        .catch();
+        .catch(err => {
+          let msg = `Failed to request a token ${err}`
+          log.error(msg);
+          reject(err);
+        });
       })
   })
 }
@@ -63,8 +67,9 @@ function getUserInfo(token: string): Promise<UserProfile> {
         resolve(JSON.parse(result.data.toString()));
       })
       .catch(err => {
-        log.error("Failed to get spotify access token: ", err);
-        reject(`Failed to get spotify access token: ${err}`)
+        let msg = `Failed to get spotify access token: ${err}`;
+        log.error(msg);
+        reject(msg)
       });
   })
 }
