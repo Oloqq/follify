@@ -12,18 +12,28 @@ function basicAuth(): string {
 }
 
 export function initRoutes(app: Express) {
-  app.get("/callback", (req: Request, res: Response) => {
+  app.get("/callback", async (req: Request, res: Response) => {
     log.info("Received callback");
     if (typeof req.query.code !== "string") {
       log.error(`No code received in the callback, or code is not a string: ${req.query.code}`);
       return;
     }
-    requestToken(req.query.code);
 
+    try {
+      let authData = await requestToken(req.query.code);
+      let profile = await getUserInfo(authData.access_token)
+      log.info(profile.id);
+      req.session.userid = profile.id;
+      res.redirect("/");
+
+    } catch (error) {
+      log.error("callback failed");
+      //TODO res.redirect("500 error page")
+    }
   });
 }
 
-function requestToken(code: string): Promise<string> {
+function requestToken(code: string): Promise<AuthData> {
   return new Promise((resolve, reject) => {
     urllib.request("https://accounts.spotify.com/api/token", {
       method: "POST",
@@ -41,16 +51,7 @@ function requestToken(code: string): Promise<string> {
           reject(result.res);
         }
 
-        var authData: AuthData = JSON.parse(result.data.toString());
-        getUserInfo(authData.access_token)
-        .then((profile: UserProfile) => {
-          log.info(profile.id);
-        })
-        .catch(err => {
-          let msg = `Failed to request a token ${err}`
-          log.error(msg);
-          reject(err);
-        });
+        resolve(JSON.parse(result.data.toString()));
       })
   })
 }
