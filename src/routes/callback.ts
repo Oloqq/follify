@@ -27,6 +27,7 @@ export function initRoutes(app: Express) {
     })
     .then(profile => {
       req.session.userid = profile.id;
+      req.session.tokenTemp = authData.access_token;
       saveUserInfo(profile, authData);
       res.redirect("/");
     })
