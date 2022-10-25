@@ -1,15 +1,16 @@
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== "production") { // PROD should have those set in the environment already
   require("dotenv").config();
 }
 
 function assertEnv(variable: string): string {
   if (process.env[variable] === undefined) {
-    console.log(`FATAL: environment variable ${variable} is not set`);
+    console.log(`FATAL: environment variable ${variable} is not set`); // TODO use logger
     process.exit();
   }
   return process.env[variable]!;
 }
 
+// Wrapper for environment variables
 export class Environment {
   static readonly clientId = assertEnv("SPOTIFY_CLIENT_ID");
   static readonly clientSecret = assertEnv("SPOTIFY_CLIENT_SECRET");
@@ -20,10 +21,9 @@ export class Environment {
   static readonly sessionSecret = assertEnv("SESSION_SECRET");
 }
 
-// export const env = new Environment();
-
 export default Environment;
 
+// Check directory structure
 import fs from "fs";
 (function verifyFilesystem() {
   const logdir = './logs';

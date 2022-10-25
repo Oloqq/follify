@@ -29,7 +29,7 @@ export function initRoutes(app: Express) {
       req.session.userid = profile.id;
       req.session.tokenTemp = authData.access_token;
       saveUserInfo(profile, authData);
-      res.redirect("http://localhost:3000/");
+      res.redirect("http://localhost:3000/"); //TODO read from environment
     })
     .catch(err => {
       log.error(`Callback failed ${err}`);

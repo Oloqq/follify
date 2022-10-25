@@ -6,18 +6,13 @@ import "./sessionData";
 import log from "../logs";
 import ENV from "../environment";
 
-const scopes = [
+const scopes: string = [
   "user-follow-read",
   "playlist-modify-public",
   "playlist-modify-private"
-];
+].join(" ");
 
 export function initRoutes(app: Express) {
-  var scope = "";
-  for (let s of scopes) {
-    scope += s + " ";
-  }
-
   app.get("/login", (req: Request, res: Response) => {
     log.info("Login attempt");
 
@@ -25,7 +20,7 @@ export function initRoutes(app: Express) {
       querystring.stringify({
         response_type: "code",
         client_id: ENV.clientId,
-        scope: scope,
+        scope: scopes,
         redirect_uri: ENV.callback,
       }));
   });

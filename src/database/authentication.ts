@@ -1,3 +1,5 @@
+// Storage for tokens needed for authentication
+
 import fs from "fs"
 import sqlite3, { Database } from "sqlite3";
 import { dblog as log } from "../logs";
