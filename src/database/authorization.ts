@@ -8,15 +8,18 @@ export class AuthDB {
   db: Database;
 
   constructor(dbFile: string) {
-    this.db = new sqlite3.Database(dbFile);
-    if (!fs.existsSync(dbFile)) {
+    const dbPath = `.data/${dbFile}.db`;
+
+    this.db = new sqlite3.Database(dbPath);
+    if (!fs.existsSync(dbPath)) {
+      log.info("Creating table authorization", dbPath);
+
       this.db.get('PRAGMA foreign_keys = ON'); // Enable foreign keys
 
       this.db.serialize(() => {
-        log.info("Creating table user_auth");
         this.db.run(`
-          CREATE TABLE user_auth (
-            id varchar(20) NOT NULL PRIMARY KEY,
+          CREATE TABLE authorization (
+            id_auth varchar(20) NOT NULL PRIMARY KEY,
             access_token TEXT,
             expiry TEXT,
             refresh_token TEXT
@@ -27,11 +30,11 @@ export class AuthDB {
   }
 
   putUser(id: any, accessToken: any, expiry: any, refreshToken: any) {
-    var sql = `INSERT INTO user_auth(id, access_token, expiry, refresh_token)
+    var sql = `INSERT INTO authorization(id_auth, access_token, expiry, refresh_token)
       VALUES (?, ?, ?, ?)
-      ON CONFLICT(id) DO UPDATE
+      ON CONFLICT(id_auth) DO UPDATE
         SET access_token=?2, expiry=?3, refresh_token=?4
-        WHERE id=?1`;
+        WHERE id_auth=?1`;
     this.db.run(sql, [id, accessToken, expiry, refreshToken], (err: any) => {
       if (err) {
         log.error('Failed to put a user. ', err);
@@ -42,7 +45,7 @@ export class AuthDB {
   }
 
   getUser(id: any) {
-    var sql = `SELECT * FROM user WHERE id=${id}`;
+    var sql = `SELECT * FROM user WHERE id_auth=${id}`;
     return new Promise((resolve, reject) =>{
       this.db.get(sql, (err: any, row: any)=>{
         if (err) {
