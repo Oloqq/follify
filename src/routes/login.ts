@@ -4,7 +4,7 @@ import { Base64 } from "js-base64";
 import urllib from "urllib";
 import "./sessionData";
 import log from "../logs";
-import ENV from "../environment";
+import env from "../environment";
 
 const scopes: string = [
   "user-follow-read",
@@ -19,9 +19,9 @@ export function initRoutes(app: Express) {
     res.redirect("https://accounts.spotify.com/authorize?" +
       querystring.stringify({
         response_type: "code",
-        client_id: ENV.clientId,
+        client_id: env.clientId,
         scope: scopes,
-        redirect_uri: ENV.callback,
+        redirect_uri: env.callback,
       }));
   });
 }

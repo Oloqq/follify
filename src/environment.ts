@@ -1,10 +1,12 @@
+import log from "./logs"
+
 if (process.env.NODE_ENV !== "production") { // PROD should have those set in the environment already
   require("dotenv").config();
 }
 
 function assertEnv(variable: string): string {
   if (process.env[variable] === undefined) {
-    console.log(`FATAL: environment variable ${variable} is not set`); // TODO use logger
+    log.error(`FATAL: environment variable ${variable} is not set`);
     process.exit();
   }
   return process.env[variable]!;
@@ -19,9 +21,8 @@ export class Environment {
   static readonly port = assertEnv("PORT");
   static readonly frontend = assertEnv("FRONTEND");
   static readonly sessionSecret = assertEnv("SESSION_SECRET");
+  static readonly errorPage = "https://www.youtube.com/watch?v=kpwNjdEPz7E";
 }
-
-export default Environment;
 
 // Check directory structure
 import fs from "fs";
@@ -36,3 +37,5 @@ import fs from "fs";
     fs.mkdirSync(dbdir, { recursive: true });
   }
 })
+
+export default Environment;

@@ -3,12 +3,12 @@ import { Base64 } from "js-base64";
 import urllib from "urllib";
 import "./sessionData";
 import log from "../logs";
-import ENV from "../environment";
+import env from "../environment";
 
 const HTTP_OK = 200;
 
 function basicAuth(): string {
-  return "Basic " + Base64.encode(ENV.clientId + ":" + ENV.clientSecret);
+  return "Basic " + Base64.encode(env.clientId + ":" + env.clientSecret);
 }
 
 export function initRoutes(app: Express) {
@@ -29,12 +29,11 @@ export function initRoutes(app: Express) {
       req.session.userid = profile.id;
       req.session.tokenTemp = authData.access_token;
       saveUserInfo(profile, authData);
-      res.redirect("http://localhost:3000/"); //TODO read from environment
+      res.redirect(env.callback);
     })
     .catch(err => {
       log.error(`Callback failed ${err}`);
-      //TODO res.redirect("500 error page")
-      res.redirect("https://www.youtube.com/watch?v=kpwNjdEPz7E");
+      res.redirect(env.errorPage);
     })
   });
 }
@@ -45,7 +44,7 @@ function requestToken(code: string): Promise<AuthData> {
       method: "POST",
       data: {
         code: code,
-        redirect_uri: ENV.callback,
+        redirect_uri: env.callback,
         grant_type: "authorization_code"
       },
       headers: {
