@@ -7,7 +7,13 @@ function basicAuth(): string {
   return "Basic " + Base64.encode(env.clientId + ":" + env.clientSecret);
 }
 
-export function requestToken(code: string): Promise<AuthData> {
+function expiryDate(expiresIn: number): Date {
+  let expiry = new Date();
+  expiry.setSeconds(expiry.getSeconds() + expiresIn);
+  return expiry;
+}
+
+export function requestToken(code: string): Promise<SpotifyTokens> {
   return new Promise((resolve, reject) => {
     urllib.request("https://accounts.spotify.com/api/token", {
       method: "POST",
@@ -24,8 +30,13 @@ export function requestToken(code: string): Promise<AuthData> {
         if (result.res.statusCode != HTTP.OK) {
           reject(result.res);
         }
+        const response = JSON.parse(result.data.toString())
 
-        resolve(JSON.parse(result.data.toString()));
+        resolve({
+          accessToken: response.access_token,
+          expiry: expiryDate(response.expires_in),
+          refreshToken: response.refresh_token,
+        });
       })
   })
 }

@@ -1,6 +1,10 @@
 import urllib from "urllib";
 import log from "../logs";
 
+interface UserProfile {
+  id: string
+}
+
 export function getUserInfo(token: string): Promise<UserProfile> {
   return new Promise((resolve, reject) => {
     urllib.request("https://api.spotify.com/v1/me", {

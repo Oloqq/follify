@@ -4,7 +4,9 @@ import log from "../logs";
 import env from "../environment";
 import { requestToken } from "../spotify/authorization";
 import { getUserInfo } from "../spotify/user";
-import { saveUserInfo } from "../database/user";
+import AuthDB from "../database/authorization";
+
+const authDB = new AuthDB("authorization");
 
 export function initRoutes(app: Express) {
   app.get("/callback", async (req: Request, res: Response) => {
@@ -14,16 +16,23 @@ export function initRoutes(app: Express) {
       return;
     }
 
-    var authData: AuthData;
+    let tokens: SpotifyTokens;
     requestToken(req.query.code)
-    .then(data => {
-      authData = data;
-      return getUserInfo(authData.access_token)
+    .then(tokens_ => {
+      tokens = tokens_;
+      return getUserInfo(tokens.accessToken);
     })
     .then(profile => {
       req.session.userId = profile.id;
-      req.session.tokenTemp = authData.access_token;
-      saveUserInfo(profile, authData);
+      req.session.tokenTemp = tokens.accessToken; // TEMP
+      if (!authDB.put({
+        userId: profile.id,
+        accessToken: tokens.accessToken,
+        expiry: tokens.expiry,
+        refreshToken: tokens.refreshToken
+      })) {
+        throw new Error();
+      }
       res.redirect(env.frontend);
     })
     .catch(err => {

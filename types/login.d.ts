@@ -1,7 +1,14 @@
-interface AuthData {
-  access_token: string;
+// Response after requesting a token
+interface SpotifyTokens {
+  accessToken: string;
+  expiry: Date;
+  refreshToken: string;
 }
 
-interface UserProfile {
-  id: string
+// Row of the authorization table
+interface UserTokens {
+  userId: string;
+  accessToken: string;
+  expiry: Date;
+  refreshToken: string;
 }
