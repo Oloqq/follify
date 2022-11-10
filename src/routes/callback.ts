@@ -24,7 +24,7 @@ export function initRoutes(app: Express) {
       req.session.userid = profile.id;
       req.session.tokenTemp = authData.access_token;
       saveUserInfo(profile, authData);
-      res.redirect(env.callback);
+      res.redirect(env.frontend);
     })
     .catch(err => {
       log.error(`Callback failed ${err}`);

@@ -27,7 +27,7 @@ export function initRoutes(app: Express) {
       log.error(`During making a playlist: ${err}`);
     })
 
-    res.redirect("/");
+    res.send(201);
   });
 }
 
