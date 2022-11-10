@@ -2,7 +2,7 @@ import { Express, Request, Response } from "express";
 import querystring from "query-string";
 import { Base64 } from "js-base64";
 import urllib from "urllib";
-import "./sessionData";
+import "../sessionData";
 import log from "../logs";
 import env from "../environment";
 

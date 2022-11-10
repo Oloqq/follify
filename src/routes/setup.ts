@@ -1,6 +1,6 @@
 import { Express } from "express";
 import { Environment} from "environment"
-import "./sessionData";
+import "../sessionData";
 
 import temporary from "./temporary";
 import login from "./login";

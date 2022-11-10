@@ -1,5 +1,5 @@
 import { Express, Request, Response } from "express";
-import "./sessionData";
+import "../sessionData";
 import log from "../logs";
 import env from "../environment";
 import { requestToken } from "../spotify/authorization";

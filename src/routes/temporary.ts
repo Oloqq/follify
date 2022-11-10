@@ -1,6 +1,6 @@
 // to be removed
 import { Express, Request, Response } from "express";
-import "./sessionData";
+import "../sessionData";
 
 export function initRoutes(app: Express) {
   app.get("/", (req: Request, res: Response) => {
