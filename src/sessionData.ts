@@ -2,7 +2,7 @@ import "express-session";
 
 declare module "express-session" {
   export interface SessionData {
-    userid: string;
+    userId: string;
     num: number; // tmp
     tokenTemp: string; // tmp
   }

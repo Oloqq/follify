@@ -35,8 +35,8 @@ export function initRoutes(app: Express) {
 
   app.get("/testAPI", (req: Request, res: Response)=> {
     console.log(req.session);
-    if (req.session && req.session.userid) {
-      res.send("session: " + req.session.userid);
+    if (req.session && req.session.userId) {
+      res.send("session: " + req.session.userId);
     }
     else {
       res.send("BRUH");

@@ -13,13 +13,13 @@ function newPlaylistName(): string {
 
 export function initRoutes(app: Express) {
   app.post("/playlistnow", async (req: Request, res: Response) => {
-    log.info(`playlistnow ${req.session.userid}`);
-    if (req.session.userid === undefined || req.session.tokenTemp === undefined) {
+    log.info(`playlistnow ${req.session.userId}`);
+    if (req.session.userId === undefined || req.session.tokenTemp === undefined) {
       res.send("login first");
       return;
     }
 
-    let user = req.session.userid;
+    let user = req.session.userId;
     let name = newPlaylistName();
     let token = req.session.tokenTemp;
 
