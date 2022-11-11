@@ -1,7 +1,7 @@
 // to be removed
 import { Express, Request, Response } from "express";
 import "../sessionData";
-import { getFollowing } from "../spotify/follow";
+import { getFollowing } from "../spotify/users";
 
 export function initRoutes(app: Express) {
   app.get("/", (req: Request, res: Response) => {
