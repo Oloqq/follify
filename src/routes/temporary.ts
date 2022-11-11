@@ -2,13 +2,33 @@
 import { Express, Request, Response } from "express";
 import "../sessionData";
 import { getFollowing } from "../spotify/users";
+import { artist } from "../spotify/artists";
 
 export function initRoutes(app: Express) {
   app.get("/", (req: Request, res: Response) => {
     res.sendFile(`${global.appRoot}/views/index.html`);
   })
 
-  app.get("/test", (req: Request, res: Response) => {
+  app.get("/artistsalbums", (req: Request, res: Response) => {
+    if (req.session.userId === undefined || req.session.tokenTemp === undefined) {
+      res.send("login first");
+      return;
+    }
+
+    artist.getAlbums(req.session.tokenTemp, "0gxyHStUsqpMadRV0Di1Qt")
+      .then((stuff: Album[]) => {
+        let s = "";
+        stuff.forEach(album => {
+          s += album.name + "<br>";
+        });
+        res.send(s);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  })
+
+  app.get("/following", (req: Request, res: Response) => {
     if (req.session.userId === undefined || req.session.tokenTemp === undefined) {
       res.send("login first");
       return;
