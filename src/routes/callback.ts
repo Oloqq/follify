@@ -3,7 +3,7 @@ import "../sessionData";
 import log from "../logs";
 import env from "../environment";
 import { requestToken } from "../spotify/authorization";
-import { getUserInfo } from "../spotify/user";
+import { getUserInfo } from "../spotify/users";
 import AuthDB from "../database/authorization";
 
 const authDB = new AuthDB("authorization");

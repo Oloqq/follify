@@ -1,14 +1,14 @@
 import { Express, Request, Response } from "express";
 import "../sessionData";
 import log from "../logs";
-import { createPlaylist, addTracksToPlaylist } from "../spotify/playlist";
+import { createPlaylist, addTracksToPlaylist } from "../spotify/playlists";
 import { gatherTracks } from "../spotify/tracks";
 
 const description = "Follify created this!\nhttps://github.com/Oloqq/follify";
 
 function newPlaylistName(): string {
   const now = new Date();
-  return `"Follify created this!" ${now.toDateString()}`;
+  return `Follify created this! ${now.toDateString()}`;
 }
 
 export function initRoutes(app: Express) {
@@ -33,7 +33,7 @@ export function initRoutes(app: Express) {
       log.error(`During making a playlist: ${err}`);
     })
 
-    res.send(201);
+    res.send(201); // use http enum
   });
 }
 

@@ -1,13 +1,33 @@
 // to be removed
 import { Express, Request, Response } from "express";
 import "../sessionData";
+import { getFollowing } from "../spotify/follow";
 
 export function initRoutes(app: Express) {
   app.get("/", (req: Request, res: Response) => {
     res.sendFile(`${global.appRoot}/views/index.html`);
   })
 
-  app.get("/inc", (req: Request, res: Response)=> {
+  app.get("/test", (req: Request, res: Response) => {
+    if (req.session.userId === undefined || req.session.tokenTemp === undefined) {
+      res.send("login first");
+      return;
+    }
+
+    getFollowing(req.session.tokenTemp)
+      .then((stuff: Artist[]) => {
+        let s = "";
+        stuff.forEach(artist => {
+          s += artist.name + "<br>";
+        });
+        res.send(s);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  })
+
+  app.get("/inc", (req: Request, res: Response) => {
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
     if (req.session.num == undefined) {
@@ -20,7 +40,7 @@ export function initRoutes(app: Express) {
     }
   });
 
-  app.get("/dec", (req: Request, res: Response)=> {
+  app.get("/dec", (req: Request, res: Response) => {
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
     if (req.session.num == undefined) {
@@ -33,7 +53,7 @@ export function initRoutes(app: Express) {
     }
   });
 
-  app.get("/testAPI", (req: Request, res: Response)=> {
+  app.get("/testAPI", (req: Request, res: Response) => {
     console.log(req.session);
     if (req.session && req.session.userId) {
       res.send("session: " + req.session.userId);
