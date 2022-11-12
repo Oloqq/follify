@@ -60,3 +60,12 @@ export function refreshToken(refreshToken: string): Promise<SpotifyTokens> {
     refresh_token: refreshToken,
   });
 }
+
+export function identifiedTokens(tokens: SpotifyTokens, userId: string): UserTokens {
+  return {
+    userId: userId,
+    accessToken: tokens.accessToken,
+    expiry: tokens.expiry,
+    refreshToken: tokens.refreshToken
+  }
+}

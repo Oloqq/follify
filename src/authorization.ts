@@ -1,9 +1,44 @@
-import authDB from "database/authorization";
-import { refreshToken } from "spotify/authorization";
+import authDB from "./database/authorization";
+import { identifiedTokens, refreshToken } from "./spotify/authorization";
+import log from "./logs";
 
 export namespace authorizator {
-  export function getToken(userid: string): string {
-    return "";
+  function isExpired(tokens: UserTokens): boolean {
+    const expired = tokens.expiry < new Date();
+    if (expired) {
+      log.info(`Tokens expired for ${tokens.userId} on ${tokens.expiry}`);
+    }
+    return expired;
+  }
+
+  function refresh(tokens: UserTokens): Promise<UserTokens> {
+    return new Promise((resolve, reject) => {
+      refreshToken(tokens.refreshToken)
+        .then(noIdTokens => {
+          const newTokens = identifiedTokens(noIdTokens, tokens.userId);
+          authDB.put(newTokens);
+          resolve(newTokens);
+        })
+        .catch(err => {
+          const msg = `Couldn't refresh token for ${tokens.userId}: ${err}`
+          log.error(msg);
+          reject(msg);
+        })
+    })
+  }
+
+  export function getToken(userId: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      authDB.get(userId)
+        .then(tokens => { return isExpired(tokens) ? refresh(tokens) : tokens })
+        .then(tokens => {
+          resolve(tokens.accessToken);
+        })
+        .catch(err => {
+          log.error(`Couldn't get token for ${userId}: ${err}`);
+          reject(err);
+        })
+    });
   }
 }
 

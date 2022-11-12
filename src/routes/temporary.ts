@@ -16,7 +16,8 @@ export function initRoutes(app: Express) {
       return;
     }
 
-    artist.getAlbums(authorizator.getToken(req.session.userId), "0gxyHStUsqpMadRV0Di1Qt")
+    authorizator.getToken(req.session.userId)
+      .then(token => artist.getAlbums(token, "0gxyHStUsqpMadRV0Di1Qt"))
       .then((stuff: Album[]) => {
         let s = "";
         stuff.forEach(album => {
@@ -35,7 +36,8 @@ export function initRoutes(app: Express) {
       return;
     }
 
-    getFollowing(authorizator.getToken(req.session.userId))
+    authorizator.getToken(req.session.userId)
+      .then(token => getFollowing(token))
       .then((stuff: Artist[]) => {
         let s = "";
         stuff.forEach(artist => {

@@ -2,7 +2,7 @@ import { Express, Request, Response } from "express";
 import "../sessionData";
 import log from "../logs";
 import env from "../environment";
-import { requestToken } from "../spotify/authorization";
+import { identifiedTokens, requestToken } from "../spotify/authorization";
 import { getUserInfo } from "../spotify/users";
 import authDB from "../database/authorization";
 
@@ -22,12 +22,7 @@ export function initRoutes(app: Express) {
     })
     .then(profile => {
       req.session.userId = profile.id;
-      if (!authDB.put({
-        userId: profile.id,
-        accessToken: tokens.accessToken,
-        expiry: tokens.expiry,
-        refreshToken: tokens.refreshToken
-      })) {
+      if (!authDB.put(identifiedTokens(tokens, profile.id))) {
         throw new Error();
       }
       res.redirect(env.frontend);
