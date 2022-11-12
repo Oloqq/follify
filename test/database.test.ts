@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import env from "../src/environment";
-import AuthDB from "../src/database/authorization";
+import { AuthDB } from "../src/database/authorization";
 
 describe("Authorization database", () => {
   it("initializes properly", (done) => {
