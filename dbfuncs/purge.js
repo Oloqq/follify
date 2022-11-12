@@ -1,3 +1,3 @@
 const fs = require("fs");
-const dbFile = ".data/followify.db";
+const dbFile = ".data/authorization.db";
 fs.unlinkSync(dbFile);

@@ -48,14 +48,19 @@ export class AuthDB {
   }
 
   get(id: string): Promise<UserTokens> {
-    var sql = `SELECT * FROM user WHERE id_auth=${id}`;
+    var sql = `SELECT * FROM authorization WHERE id_auth=${id}`;
     return new Promise((resolve, reject) =>{
       this.db.get(sql, (err: any, row: any)=>{
         if (err) {
           log.error('Failed to get user data.', err);
           reject(false);
         }
-        resolve(row);
+        resolve({
+          userId: row.id_auth,
+          accessToken: row.access_token,
+          expiry: new Date(parseFloat(row.expiry)),
+          refreshToken: row.refresh_token,
+        });
       });
     });
   }

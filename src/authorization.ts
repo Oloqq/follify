@@ -4,11 +4,14 @@ import log from "./logs";
 
 export namespace authorizator {
   function isExpired(tokens: UserTokens): boolean {
-    const expired = tokens.expiry < new Date();
+    const now = new Date();
+    const expired = tokens.expiry < now;
     if (expired) {
-      log.info(`Tokens expired for ${tokens.userId} on ${tokens.expiry}`);
+      log.info(`Tokens expired for ${tokens.userId} on ${new Date(tokens.expiry)}`);
     }
-    return expired;
+    // return expired;
+    log.info(`expiry: ${tokens.expiry}, now: ${now}`);
+    return false;
   }
 
   function refresh(tokens: UserTokens): Promise<UserTokens> {
@@ -30,8 +33,10 @@ export namespace authorizator {
   export function getToken(userId: string): Promise<string> {
     return new Promise((resolve, reject) => {
       authDB.get(userId)
-        .then(tokens => { return isExpired(tokens) ? refresh(tokens) : tokens })
+        .then(tokens => {console.log(tokens); return (isExpired(tokens) ? refresh(tokens) : tokens) })
         .then(tokens => {
+          log.info(`Obtained token: ${tokens.toString()}`);
+          console.log("Obtained token: ", tokens);
           resolve(tokens.accessToken);
         })
         .catch(err => {
