@@ -12,7 +12,6 @@ export namespace artist {
 
   //TODO implement paging just in case, and to save transfer on fist call
   export function getAlbums(token: string, id: string): Promise<Album[]> {
-    console.log(token);
     return urllib.request(`https://api.spotify.com/v1/artists/${id}/albums?`
     + querystring.stringify({
       // TODO handle appears_on (see bottom of the file)

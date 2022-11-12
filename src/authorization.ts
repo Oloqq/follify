@@ -9,9 +9,7 @@ export namespace authorizator {
     if (expired) {
       log.info(`Tokens expired for ${tokens.userId} on ${new Date(tokens.expiry)}`);
     }
-    // return expired;
-    log.info(`expiry: ${tokens.expiry}, now: ${now}`);
-    return false;
+    return expired;
   }
 
   function refresh(tokens: UserTokens): Promise<UserTokens> {
@@ -33,12 +31,8 @@ export namespace authorizator {
   export function getToken(userId: string): Promise<string> {
     return new Promise((resolve, reject) => {
       authDB.get(userId)
-        .then(tokens => {console.log(tokens); return (isExpired(tokens) ? refresh(tokens) : tokens) })
-        .then(tokens => {
-          log.info(`Obtained token: ${tokens.toString()}`);
-          console.log("Obtained token: ", tokens);
-          resolve(tokens.accessToken);
-        })
+        .then(tokens => {return isExpired(tokens) ? refresh(tokens) : tokens})
+        .then(tokens => resolve(tokens.accessToken))
         .catch(err => {
           log.error(`Couldn't get token for ${userId}: ${err}`);
           reject(err);
