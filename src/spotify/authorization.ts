@@ -13,15 +13,20 @@ function expiryDate(expiresIn: number): Date {
   return expiry;
 }
 
-export function requestToken(code: string): Promise<SpotifyTokens> {
+type TokenRqData = {
+  grant_type: string,
+  code: string,
+  redirect_uri: string,
+} | {
+  grant_type: string,
+  refresh_token: string,
+}
+
+function askForToken(data: TokenRqData): Promise<SpotifyTokens> {
   return new Promise((resolve, reject) => {
     urllib.request("https://accounts.spotify.com/api/token", {
       method: "POST",
-      data: {
-        code: code,
-        redirect_uri: env.callback,
-        grant_type: "authorization_code"
-      },
+      data: data,
       headers: {
         "Authorization": basicAuth()
       }
@@ -39,4 +44,19 @@ export function requestToken(code: string): Promise<SpotifyTokens> {
         });
       })
   })
+}
+
+export function requestToken(code: string): Promise<SpotifyTokens> {
+  return askForToken({
+    grant_type: "authorization_code",
+    code: code,
+    redirect_uri: env.callback,
+  })
+}
+
+export function refreshToken(refreshToken: string): Promise<SpotifyTokens> {
+  return askForToken({
+    grant_type: "refresh_token",
+    refresh_token: refreshToken,
+  });
 }

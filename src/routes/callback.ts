@@ -4,9 +4,7 @@ import log from "../logs";
 import env from "../environment";
 import { requestToken } from "../spotify/authorization";
 import { getUserInfo } from "../spotify/users";
-import AuthDB from "../database/authorization";
-
-const authDB = new AuthDB("authorization");
+import authDB from "../database/authorization";
 
 export function initRoutes(app: Express) {
   app.get("/callback", async (req: Request, res: Response) => {
@@ -24,7 +22,6 @@ export function initRoutes(app: Express) {
     })
     .then(profile => {
       req.session.userId = profile.id;
-      req.session.tokenTemp = tokens.accessToken; // TEMP
       if (!authDB.put({
         userId: profile.id,
         accessToken: tokens.accessToken,

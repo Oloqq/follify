@@ -3,6 +3,7 @@ import { Express, Request, Response } from "express";
 import "../sessionData";
 import { getFollowing } from "../spotify/users";
 import { artist } from "../spotify/artists";
+import authorizator from "../authorization";
 
 export function initRoutes(app: Express) {
   app.get("/", (req: Request, res: Response) => {
@@ -10,12 +11,12 @@ export function initRoutes(app: Express) {
   })
 
   app.get("/artistsalbums", (req: Request, res: Response) => {
-    if (req.session.userId === undefined || req.session.tokenTemp === undefined) {
+    if (req.session.userId === undefined) {
       res.send("login first");
       return;
     }
 
-    artist.getAlbums(req.session.tokenTemp, "0gxyHStUsqpMadRV0Di1Qt")
+    artist.getAlbums(authorizator.getToken(req.session.userId), "0gxyHStUsqpMadRV0Di1Qt")
       .then((stuff: Album[]) => {
         let s = "";
         stuff.forEach(album => {
@@ -29,12 +30,12 @@ export function initRoutes(app: Express) {
   })
 
   app.get("/following", (req: Request, res: Response) => {
-    if (req.session.userId === undefined || req.session.tokenTemp === undefined) {
+    if (req.session.userId === undefined) {
       res.send("login first");
       return;
     }
 
-    getFollowing(req.session.tokenTemp)
+    getFollowing(authorizator.getToken(req.session.userId))
       .then((stuff: Artist[]) => {
         let s = "";
         stuff.forEach(artist => {

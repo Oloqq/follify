@@ -47,7 +47,7 @@ export class AuthDB {
     return success;
   }
 
-  get(id: string) {
+  get(id: string): Promise<UserTokens> {
     var sql = `SELECT * FROM user WHERE id_auth=${id}`;
     return new Promise((resolve, reject) =>{
       this.db.get(sql, (err: any, row: any)=>{
@@ -61,4 +61,5 @@ export class AuthDB {
   }
 }
 
-export default AuthDB;
+export const authDB = new AuthDB("authorization");
+export default authDB;
