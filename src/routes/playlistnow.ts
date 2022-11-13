@@ -4,6 +4,7 @@ import log from "../logs";
 import { createPlaylist, addTracksToPlaylist } from "../spotify/playlists";
 import { gatherTracks } from "../spotify/tracks";
 import authorizator from "../authorization";
+import HTTP from "../HttpStatusCode"
 
 const description = "Follify created this!\nhttps://github.com/Oloqq/follify";
 
@@ -37,7 +38,7 @@ export function initRoutes(app: Express) {
       log.error(`During making a playlist: ${err}`);
     })
 
-    res.send(201); // use http enum
+    res.sendStatus(HTTP.CREATED);
   });
 }
 
