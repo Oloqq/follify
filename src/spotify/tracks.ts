@@ -1,3 +1,9 @@
-export function gatherTracks(): string[] {
-    return ["spotify:track:4cOdK2wGLETKBW3PvgPWqT"];
+export namespace tracks {
+  export function extractIds(tracks: Track[]): string[] {
+    return tracks.map(track => track.id);
+  }
+
+
 }
+
+export default tracks;

@@ -1,10 +1,13 @@
 import { Express, Request, Response } from "express";
 import "../sessionData";
 import log from "../logs";
-import { createPlaylist, addTracksToPlaylist } from "../spotify/playlists";
-import { gatherTracks } from "../spotify/tracks";
-import authorizator from "../authorization";
 import HTTP from "../HttpStatusCode"
+import authorizator from "../authorization";
+
+import sptracks from "../spotify/tracks"; //TODO create a namespace
+import { createPlaylist, addTracksToPlaylist } from "../spotify/playlists";
+import { getFollowing } from "../spotify/users";
+import spartist from "../spotify/artists";
 
 const description = "Follify created this!\nhttps://github.com/Oloqq/follify";
 
@@ -24,15 +27,15 @@ export function initRoutes(app: Express) {
     let user = req.session.userId;
     let name = newPlaylistName();
     let token: string;
+    let trackIds: string[];
 
-    let tracks = gatherTracks();
     authorizator.getToken(user)
-    .then(token_ => {
-      token = token_;
-      return createPlaylist(user, name, description, token)
-    })
+    .then(token_ => { token = token_ })
+    .then(() => gatherTracks(token))
+    .then(tracks => { trackIds = sptracks.extractIds(tracks) })
+    .then(() => createPlaylist(user, name, description, token))
     .then(playlistId => {
-      addTracksToPlaylist(playlistId, tracks, token);
+      addTracksToPlaylist(playlistId, trackIds, token);
     })
     .catch(err => {
       log.error(`During making a playlist: ${err}`);
@@ -40,6 +43,33 @@ export function initRoutes(app: Express) {
 
     res.sendStatus(HTTP.CREATED);
   });
+}
+
+function gatherTracks(token: string): Promise<Track[]> {
+  return new Promise((resolve, reject) => getFollowing(token)
+  .then((following) => {
+    let albums: Album[] = [];
+    following.forEach(async (followedArtist) => {
+      albums.push(...await spartist.getAlbums(token, followedArtist.id, {limit: 1}));
+    });
+    return albums;
+  })
+  .then((albums: Album[]) => {
+    let tracks: Track[] = [];
+    albums.forEach(async (album) => {
+      // tracks.push(...await spalbums.)
+    })
+
+    tracks.push({ //TEMP
+      id: "spotify:track:4cOdK2wGLETKBW3PvgPWqT",
+      name: "tmp"
+    })
+
+    resolve(tracks);
+  })
+  .catch((err) => {
+    console.log(err);
+  }))
 }
 
 export default initRoutes;
