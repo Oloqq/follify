@@ -23,7 +23,7 @@ export function initRoutes(app: Express) {
     .then(profile => {
       req.session.userId = profile.id;
       if (!authDB.put(identifiedTokens(tokens, profile.id))) {
-        throw new Error();
+        throw new Error(`Couldn't put new user in database ${profile.id}`);
       }
       res.redirect(env.frontend);
     })

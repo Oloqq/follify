@@ -34,7 +34,7 @@ export class AuthDB {
       VALUES (?, ?, ?, ?)
       ON CONFLICT(id_auth) DO UPDATE
         SET access_token=?2, expiry=?3, refresh_token=?4
-        WHERE id_auth=?1`;
+        WHERE id_auth='?1'`;
     let success = true;
     this.db.run(sql, [data.userId, data.accessToken, data.expiry, data.refreshToken], (err: any) => {
       if (err) {
