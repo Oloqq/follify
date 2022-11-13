@@ -36,6 +36,6 @@ import fs from "fs";
   if (!fs.existsSync(dbdir)) {
     fs.mkdirSync(dbdir, { recursive: true });
   }
-})
+})();
 
 export default Environment;
