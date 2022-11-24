@@ -1,6 +1,7 @@
 import urllib from "urllib";
 import log from "../logs";
 import HTTP from "../HttpStatusCode"
+import { splitArray } from "../utils";
 
 function bearer(token: string) {
   return {
@@ -8,6 +9,8 @@ function bearer(token: string) {
     'Content-Type': 'application/json'
   }
 }
+
+const maxAllowedBySpotify = 100;
 
 export async function createPlaylist(userId: string, name: string, description: string, token: string) {
   log.info(`Creating playlist. user=${userId}, playlist name=${name}`);
@@ -35,6 +38,14 @@ export async function createPlaylist(userId: string, name: string, description: 
 }
 
 export async function addTracksToPlaylist(playlist: string, tracks: string[], token: string) {
+  if (tracks.length > maxAllowedBySpotify) {
+    let chunked = splitArray(tracks, maxAllowedBySpotify);
+    chunked.forEach(chunk => {
+      addTracksToPlaylist(playlist, chunk, token);
+    });
+    return;
+  }
+
   let result = await urllib.request(`https://api.spotify.com/v1/playlists/${playlist}/tracks`, {
     method: 'POST',
     headers: bearer(token),
@@ -45,6 +56,6 @@ export async function addTracksToPlaylist(playlist: string, tracks: string[], to
 
   if (result.res.statusCode != HTTP.CREATED) {
     log.error(`Couldn't add to playlist: ${result.res.statusCode}: ${result.data.toString()} playlist=${playlist} tracks=${tracks}`);
-    throw new Error("bruh");
+    throw new Error(`Couldn't add to playlist: ${result.res.statusCode}: ${result.data.toString()} playlist=${playlist} tracks=${tracks}`);
   }
 }

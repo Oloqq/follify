@@ -1,9 +1,12 @@
 import { Express, Request, Response } from "express";
 import "../sessionData";
 import log from "../logs";
-import { createPlaylist, addTracksToPlaylist } from "../spotify/playlists";
-import { gatherTracks } from "../spotify/tracks";
+import HTTP from "../HttpStatusCode"
 import authorizator from "../authorization";
+
+import * as spotify from "../spotify/api";
+import { createPlaylist, addTracksToPlaylist } from "../spotify/playlist";
+import { getFollowing } from "../spotify/user";
 
 const description = "Follify created this!\nhttps://github.com/Oloqq/follify";
 
@@ -23,22 +26,42 @@ export function initRoutes(app: Express) {
     let user = req.session.userId;
     let name = newPlaylistName();
     let token: string;
+    let trackIds: string[];
 
-    let tracks = gatherTracks();
     authorizator.getToken(user)
-    .then(token_ => {
-      token = token_;
-      return createPlaylist(user, name, description, token)
-    })
+    .then(token_ => { token = token_ })
+    .then(() => gatherTracks(token))
+    .then(tracks => { trackIds = spotify.track.extractPrefixedIds(tracks) })
+    .then(() => createPlaylist(user, name, description, token))
     .then(playlistId => {
-      addTracksToPlaylist(playlistId, tracks, token);
+      addTracksToPlaylist(playlistId, trackIds, token);
+      res.sendStatus(HTTP.CREATED);
     })
     .catch(err => {
       log.error(`During making a playlist: ${err}`);
     })
-
-    res.send(201); // use http enum
   });
+}
+
+function gatherTracks(token: string): Promise<Track[]> {
+  return new Promise((resolve, reject) => getFollowing(token)
+  .then(async (following) => {
+    let albums: Album[] = [];
+    for (let followedArtist of following) {
+      albums.push(...await spotify.artist.getAlbums(token, followedArtist.id, {limit: 1}));
+    }
+    return albums;
+  })
+  .then(async (albums: Album[]) => {
+    let tracks: Track[] = [];
+    for (let album of albums) {
+      tracks.push(...await spotify.album.getTracks(token, album.id));
+    }
+    resolve(tracks);
+  })
+  .catch((err) => {
+    console.log(err);
+  }))
 }
 
 export default initRoutes;

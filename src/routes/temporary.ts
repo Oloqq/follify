@@ -1,8 +1,8 @@
 // to be removed
 import { Express, Request, Response } from "express";
 import "../sessionData";
-import { getFollowing } from "../spotify/users";
-import { artist } from "../spotify/artists";
+import { getFollowing } from "../spotify/user";
+import * as spotify from "../spotify/api";
 import authorizator from "../authorization";
 
 export function initRoutes(app: Express) {
@@ -17,7 +17,7 @@ export function initRoutes(app: Express) {
     }
 
     authorizator.getToken(req.session.userId)
-      .then(token => artist.getAlbums(token, "0gxyHStUsqpMadRV0Di1Qt"))
+      .then(token => spotify.artist.getAlbums(token, "0gxyHStUsqpMadRV0Di1Qt"))
       .then((stuff: Album[]) => {
         let s = "";
         stuff.forEach(album => {

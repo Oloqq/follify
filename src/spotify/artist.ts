@@ -3,20 +3,25 @@ import querystring from "query-string";
 import log from "../logs";
 import HTTP from "../HttpStatusCode"
 
-export namespace artist {
-  interface AlbumsResponse {
-    items: Album[];
-    next: string|null;
-    total: number;
-  }
+interface AlbumsResponse {
+  items: Album[];
+  next: string | null;
+  total: number;
+}
 
-  //TODO implement paging just in case, and to save transfer on fist call
-  export function getAlbums(token: string, id: string): Promise<Album[]> {
-    return urllib.request(`https://api.spotify.com/v1/artists/${id}/albums?`
+export class GetAlbumPref {
+  includeGroups?: string = "album,single"
+  limit?: number = 50 // max = 50
+}
+
+//TODO implement paging just in case, and to save transfer on fist call
+//TODO change id: string to artist: Artist|string
+export function getAlbums(token: string, id: string, pref = new GetAlbumPref()): Promise<Album[]> {
+  return urllib.request(`https://api.spotify.com/v1/artists/${id}/albums?`
     + querystring.stringify({
       // TODO handle appears_on (see bottom of the file)
-      include_groups: "album,single",
-      limit: 50
+      include_groups: pref.includeGroups,
+      limit: pref.limit
     })
     , {
       method: "GET",
@@ -26,7 +31,7 @@ export namespace artist {
     })
     .then(result => {
       if (result.res.statusCode != HTTP.OK) {
-        let msg = `Couldn't get album's tracks: ${result.res.statusCode}`
+        let msg = `Couldn't get artists's albums: ${result.res.statusCode}`
         log.error(msg);
         throw new Error();
       }
@@ -38,7 +43,6 @@ export namespace artist {
       log.error(err);
       return [];
     });
-  }
 }
 
 /* NOTE
