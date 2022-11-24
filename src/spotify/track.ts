@@ -1,4 +1,4 @@
-export function extractIds(tracks: Track[]): string[] {
-  return tracks.map(track => track.id);
+export function extractPrefixedIds(tracks: Track[]): string[] {
+  return tracks.map(track => "spotify:track:" + track.id);
 }
 

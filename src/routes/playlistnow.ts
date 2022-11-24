@@ -31,39 +31,32 @@ export function initRoutes(app: Express) {
     authorizator.getToken(user)
     .then(token_ => { token = token_ })
     .then(() => gatherTracks(token))
-    .then(tracks => { trackIds = spotify.track.extractIds(tracks) })
+    .then(tracks => { trackIds = spotify.track.extractPrefixedIds(tracks) })
     .then(() => createPlaylist(user, name, description, token))
     .then(playlistId => {
       addTracksToPlaylist(playlistId, trackIds, token);
+      res.sendStatus(HTTP.CREATED);
     })
     .catch(err => {
       log.error(`During making a playlist: ${err}`);
     })
-
-    res.sendStatus(HTTP.CREATED);
   });
 }
 
 function gatherTracks(token: string): Promise<Track[]> {
   return new Promise((resolve, reject) => getFollowing(token)
-  .then((following) => {
+  .then(async (following) => {
     let albums: Album[] = [];
-    following.forEach(async (followedArtist) => {
+    for (let followedArtist of following) {
       albums.push(...await spotify.artist.getAlbums(token, followedArtist.id, {limit: 1}));
-    });
+    }
     return albums;
   })
-  .then((albums: Album[]) => {
+  .then(async (albums: Album[]) => {
     let tracks: Track[] = [];
-    albums.forEach(async (album) => {
-      // tracks.push(...await spalbums.)
-    })
-
-    tracks.push({ //TEMP
-      id: "spotify:track:4cOdK2wGLETKBW3PvgPWqT",
-      name: "tmp"
-    })
-
+    for (let album of albums) {
+      tracks.push(...await spotify.album.getTracks(token, album.id));
+    }
     resolve(tracks);
   })
   .catch((err) => {

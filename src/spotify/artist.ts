@@ -31,7 +31,7 @@ export function getAlbums(token: string, id: string, pref = new GetAlbumPref()):
     })
     .then(result => {
       if (result.res.statusCode != HTTP.OK) {
-        let msg = `Couldn't get album's tracks: ${result.res.statusCode}`
+        let msg = `Couldn't get artists's albums: ${result.res.statusCode}`
         log.error(msg);
         throw new Error();
       }
