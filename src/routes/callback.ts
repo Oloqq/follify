@@ -3,7 +3,7 @@ import "../sessionData";
 import log from "../logs";
 import env from "../environment";
 import { identifiedTokens, requestToken } from "../spotify/authorization";
-import { getUserInfo } from "../spotify/users";
+import { getUserInfo } from "../spotify/user";
 import authDB from "../database/authorization";
 
 export function initRoutes(app: Express) {

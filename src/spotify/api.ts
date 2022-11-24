@@ -1,6 +1,6 @@
-export * as album from "./albums";
-export * as artist from "./artists";
+export * as album from "./album";
+export * as artist from "./artist";
 export * as auth from "./authorization";
-export * as playlist from "./playlists";
-export * as track from "./tracks";
-export * as user from "./users";
+export * as playlist from "./playlist";
+export * as track from "./track";
+export * as user from "./user";

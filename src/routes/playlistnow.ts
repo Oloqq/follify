@@ -5,8 +5,8 @@ import HTTP from "../HttpStatusCode"
 import authorizator from "../authorization";
 
 import * as spotify from "../spotify/api";
-import { createPlaylist, addTracksToPlaylist } from "../spotify/playlists";
-import { getFollowing } from "../spotify/users";
+import { createPlaylist, addTracksToPlaylist } from "../spotify/playlist";
+import { getFollowing } from "../spotify/user";
 
 const description = "Follify created this!\nhttps://github.com/Oloqq/follify";
 

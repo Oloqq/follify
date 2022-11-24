@@ -1,7 +1,7 @@
 // to be removed
 import { Express, Request, Response } from "express";
 import "../sessionData";
-import { getFollowing } from "../spotify/users";
+import { getFollowing } from "../spotify/user";
 import * as spotify from "../spotify/api";
 import authorizator from "../authorization";
 
