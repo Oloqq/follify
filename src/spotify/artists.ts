@@ -3,23 +3,21 @@ import querystring from "query-string";
 import log from "../logs";
 import HTTP from "../HttpStatusCode"
 
-//TODO enclose in spotify namespace
-export namespace artist {
-  interface AlbumsResponse {
-    items: Album[];
-    next: string|null;
-    total: number;
-  }
+interface AlbumsResponse {
+  items: Album[];
+  next: string | null;
+  total: number;
+}
 
-  export class GetAlbumPref {
-    includeGroups?: string = "album,single"
-    limit?: number = 50 // max = 50
-  }
+export class GetAlbumPref {
+  includeGroups?: string = "album,single"
+  limit?: number = 50 // max = 50
+}
 
-  //TODO implement paging just in case, and to save transfer on fist call
-  //TODO change id: string to artist: Artist|string
-  export function getAlbums(token: string, id: string, pref = new GetAlbumPref()): Promise<Album[]> {
-    return urllib.request(`https://api.spotify.com/v1/artists/${id}/albums?`
+//TODO implement paging just in case, and to save transfer on fist call
+//TODO change id: string to artist: Artist|string
+export function getAlbums(token: string, id: string, pref = new GetAlbumPref()): Promise<Album[]> {
+  return urllib.request(`https://api.spotify.com/v1/artists/${id}/albums?`
     + querystring.stringify({
       // TODO handle appears_on (see bottom of the file)
       include_groups: pref.includeGroups,
@@ -45,10 +43,7 @@ export namespace artist {
       log.error(err);
       return [];
     });
-  }
 }
-
-export default artist;
 
 /* NOTE
   handle appears_on

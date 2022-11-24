@@ -4,10 +4,9 @@ import log from "../logs";
 import HTTP from "../HttpStatusCode"
 import authorizator from "../authorization";
 
-import sptracks from "../spotify/tracks"; //TODO create a namespace
+import * as spotify from "../spotify/api";
 import { createPlaylist, addTracksToPlaylist } from "../spotify/playlists";
 import { getFollowing } from "../spotify/users";
-import spartist from "../spotify/artists";
 
 const description = "Follify created this!\nhttps://github.com/Oloqq/follify";
 
@@ -32,7 +31,7 @@ export function initRoutes(app: Express) {
     authorizator.getToken(user)
     .then(token_ => { token = token_ })
     .then(() => gatherTracks(token))
-    .then(tracks => { trackIds = sptracks.extractIds(tracks) })
+    .then(tracks => { trackIds = spotify.track.extractIds(tracks) })
     .then(() => createPlaylist(user, name, description, token))
     .then(playlistId => {
       addTracksToPlaylist(playlistId, trackIds, token);
@@ -50,7 +49,7 @@ function gatherTracks(token: string): Promise<Track[]> {
   .then((following) => {
     let albums: Album[] = [];
     following.forEach(async (followedArtist) => {
-      albums.push(...await spartist.getAlbums(token, followedArtist.id, {limit: 1}));
+      albums.push(...await spotify.artist.getAlbums(token, followedArtist.id, {limit: 1}));
     });
     return albums;
   })

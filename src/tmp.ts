@@ -1,8 +1,4 @@
-import db from "./database/authorization";
+// import * as spotify from "./spotify/api";
 
-db.put({
-  userId: "kubeusz 007-pl ",
-  expiry: new Date(),
-  accessToken: "asafa",
-  refreshToken: "chlopie"
-});
+// console.log(spotify.artist.x);
+// console.log(spotify.album.x);
