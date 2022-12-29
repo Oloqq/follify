@@ -11,7 +11,7 @@ function loggerByEnv(logname: string): Logger {
 }
 
 
-export const logger: Logger = loggerByEnv("logs/basic.log");
-export const dblog: Logger  = loggerByEnv("logs/db.log");
+export const logger: Logger = loggerByEnv("basic");
+export const dblog: Logger  = loggerByEnv("db");
 
 export default logger;
