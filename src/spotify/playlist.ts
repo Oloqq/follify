@@ -33,7 +33,7 @@ export async function createPlaylist(userId: string, name: string, description: 
   }
 
   var data = JSON.parse(result.data.toString());
-  log.info(`${JSON.stringify(data)}`);
+  log.info(`Created playlist ${data.uri}`);
   return data.id;
 }
 
