@@ -9,7 +9,7 @@
     "test": "jest",
     "db": "node ./dbfuncs/manage.js",
     "jinit": "jest --init",
-    "tmp": "ts-node-dev --files src/tmp.ts"
+    "dev": "ts-node-dev --files"
   },
   "repository": {
     "type": "git",

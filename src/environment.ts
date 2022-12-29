@@ -1,3 +1,4 @@
+import "./verifyFilesystem";
 import log from "./logs"
 
 if (process.env.NODE_ENV !== "production") { // PROD should have those set in the environment already
@@ -23,19 +24,5 @@ export class Environment {
   static readonly sessionSecret = assertEnv("SESSION_SECRET");
   static readonly errorPage = "https://www.youtube.com/watch?v=kpwNjdEPz7E";
 }
-
-// Check directory structure
-import fs from "fs";
-(function verifyFilesystem() {
-  const logdir = './logs';
-  if (!fs.existsSync(logdir)) {
-    fs.mkdirSync(logdir, { recursive: true });
-  }
-
-  const dbdir = './.data';
-  if (!fs.existsSync(dbdir)) {
-    fs.mkdirSync(dbdir, { recursive: true });
-  }
-})();
 
 export default Environment;
