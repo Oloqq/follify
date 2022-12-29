@@ -43,6 +43,29 @@ describe("spotify/artist", () => {
   })
 });
 
+describe("js set", () => {
+  it("keeps unique values", () => {
+    let bruh = new Set<string>();
+    bruh.add("dupa");
+    expect(bruh).length(1);
+    bruh.add("dupa");
+    expect(bruh).length(1);
+
+    let albums = new Set<Artist>();
+    let a = {
+      id: "a",
+      name: "a"
+    }
+    let aa = {
+      id: "a",
+      name: "a"
+    }
+    albums.add(a);
+    albums.add(aa);
+    expect(albums).length(2); // => Albums are created separately so have different address and are considered unique
+  })
+})
+
 describe("gathering", () => {
   it("expands album list", async () => {
     { // assumption: cache is disabled, because cache is not implemented as of writing this line
@@ -51,12 +74,37 @@ describe("gathering", () => {
     }
 
     const token = await authorizator.getToken(user);
-    let albums: Album[] = [];
-    let tracks: Track[] = [];
+    let albums = new Map<string, Album>();
+    let tracks = new Map<string, Track>();
     await appendFromArtist(artistSubject, token, albumPeriod, albums, tracks);
 
-    expect(tracks.length).eq(0);
-    expect(albums.length).eq(1);
-    expect(albums[0].id).eq(albumSubject.id);
+    expect(tracks.size).eq(0);
+    expect(albums.size).eq(1);
+    for (let [id, alb] of albums) {
+      expect(id).eq(albumSubject.id);
+      expect(alb.id).eq(albumSubject.id);
+    }
+  })
+
+  it("does not gather duplicates of albums", async () => {
+    { // assumption: cache is disabled, because cache is not implemented as of writing this line
+      let cachedTracks = await cacheDB.get(artistSubject, albumPeriod);
+      expect(cachedTracks == undefined);
+    }
+
+    const token = await authorizator.getToken(user);
+    let albums = new Map<string, Album>();
+    let tracks = new Map<string, Track>();
+    // 1st
+    await appendFromArtist(artistSubject, token, albumPeriod, albums, tracks);
+    // 2nd
+    await appendFromArtist(artistSubject, token, albumPeriod, albums, tracks);
+
+    expect(tracks.size).eq(0);
+    expect(albums.size).eq(1);
+    for (let [id, alb] of albums) {
+      expect(id).eq(albumSubject.id);
+      expect(alb.id).eq(albumSubject.id);
+    }
   })
 });
