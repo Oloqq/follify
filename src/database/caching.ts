@@ -3,6 +3,7 @@
 import fs from "fs"
 import sqlite3, { Database } from "sqlite3";
 import { dblog as log } from "../logs";
+import { DateSpan } from "../utils";
 
 export class CacheDB {
   db: Database;
@@ -17,7 +18,7 @@ export class CacheDB {
     return false;
   }
 
-  get(artist: Artist, minDate: Date, maxDate: Date): Promise<Track[]>|undefined {
+  get(artist: Artist, period: DateSpan): Promise<Track[]>|undefined {
     return undefined;
   }
 }

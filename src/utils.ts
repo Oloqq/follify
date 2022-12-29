@@ -6,24 +6,36 @@ export function splitArray<T>(arr: T[], chunkSize: number): T[][] {
   return res;
 }
 
-export class DateSpan {
-  min: Date;
-  max: Date;
+export class SpotiDate {
+  value: string;
 
-  constructor (min: Date, max: Date) {
-    this.min = min;
-    this.max = max;
-  }
-
-  contains(date: Date): boolean {
-    return date >= this.min && date <= this.max;
-  }
-
-  static YMD(d: Date): string {
-    return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`
+  constructor(val: string) {
+    let regex = /[0-9]{4}-[0-9]{2}-[0-9]{2}/g
+    if (!regex.test(val)) {
+      throw new Error(`date not in spotifyish format of YYYY-MM-DD: (${val})`);
+    }
+    this.value = val;
   }
 
   toString(): string {
-    return `${DateSpan.YMD(this.min)}/${DateSpan.YMD(this.max)}`;
+    return this.value;
+  }
+}
+
+export class DateSpan {
+  min: SpotiDate;
+  max: SpotiDate;
+
+  constructor (min: SpotiDate|string, max: SpotiDate|string) {
+    this.min = (min instanceof SpotiDate) ? min : new SpotiDate(min);
+    this.max = (max instanceof SpotiDate) ? max : new SpotiDate(max);
+  }
+
+  contains(date: SpotiDate): boolean {
+    return date.toString() >= this.min.toString() && date.toString() <= this.max.toString();
+  }
+
+  toString(): string {
+    return `${this.min}/${this.max}`;
   }
 }

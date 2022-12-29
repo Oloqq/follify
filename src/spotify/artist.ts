@@ -4,7 +4,11 @@ import log from "../logs";
 import HTTP from "../HttpStatusCode"
 
 interface AlbumsResponse {
-  items: Album[];
+  items: {
+    id: string,
+    name: string,
+    release_date: string
+  }[];
   next: string | null;
   total: number;
 }
@@ -37,7 +41,13 @@ export function getAlbums(token: string, id: string, pref = new GetAlbumPref()):
       }
 
       let data: AlbumsResponse = JSON.parse(result.data.toString());
-      return data.items;
+      return data.items.map(item => {
+        return {
+          id: item.id,
+          name: item.name,
+          release: item.release_date
+        }
+      });
     })
     .catch(err => {
       log.error(err);

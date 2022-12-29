@@ -6,7 +6,7 @@ interface Artist {
 interface Album {
   id: string,
   name: string,
-  release: Date
+  release: SpotiDate
 }
 
 interface Track {
