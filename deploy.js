@@ -75,7 +75,7 @@ function execHandler({error, stdout, stderr}) {
     "cd dist",
     "git init -b main",
     "git add .",
-    "git commit -am 'auto deploy'",
+    `git commit -am "auto deploy"`,
     `git remote add origin ${depRepo}`,
     "git push --force origin main"
   ]
