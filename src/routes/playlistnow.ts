@@ -9,7 +9,7 @@ import { gatherTracks } from "../gathering";
 import * as spotify from "../spotify/api";
 import { createPlaylist, addTracksToPlaylist } from "../spotify/playlist";
 
-const description = "Follify created this!\nhttps://github.com/Oloqq/follify";
+const description = "Created by Follify!\nhttps://github.com/Oloqq/follify";
 
 function newPlaylistName(): string {
   const now = new Date();
