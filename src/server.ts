@@ -1,6 +1,6 @@
 import env from "./environment";
 import express from "express";
-import session from "express-session";
+import session from "cookie-session";
 import cors from "cors";
 import path from "path"
 import initRoutes from "./routes/setup"
@@ -11,9 +11,7 @@ global.appRoot = path.resolve(__dirname);
 const app = express();
 app.use(cors());
 app.use(session({
-  secret: env.sessionSecret || process.exit(1),
-  saveUninitialized: true,
-  resave: true,
+  secret: env.sessionSecret || process.exit(1)
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
