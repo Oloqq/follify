@@ -44,6 +44,10 @@ function execHandler({error, stdout, stderr}) {
   fs.mkdirSync(dist+"src/");
   fs.copySync("./src/views/", dist+"src/views/");
 
+  // include database management script
+  fs.mkdir(dist+"dbfuncs");
+  fs.copySync("./dbfuncs/manage.js", dist+"dbfuncs/manage.js");
+
   // handle package.json
   (function transferPackageJson() {
     let original = JSON.parse(fs.readFileSync("./package.json").toString());
