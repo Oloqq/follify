@@ -10,25 +10,31 @@ function bearer(token: string) {
   }
 }
 
+export interface PlaylistOptions {
+  name: string,
+  description: string,
+  public: boolean,
+}
+
 const maxAllowedBySpotify = 100;
 
-export async function createPlaylist(userId: string, name: string, description: string, token: string) {
-  log.info(`Creating playlist. user=${userId}, playlist name=${name}`);
+export async function createPlaylist(userId: string, token: string, opts: PlaylistOptions) {
+  log.info(`Creating playlist. user=${userId}, playlist name=${opts.name}`);
 
   // token = token ? token : await getToken(userId);
   let result = await urllib.request(`https://api.spotify.com/v1/users/${userId}/playlists`, {
     method: 'POST',
     headers: bearer(token),
     data: {
-      "name": name,
-      "description": description,
-      "public": false
+      "name": opts.name,
+      "description": opts.description,
+      "public": opts.public
     }
   });
 
   if (result.res.statusCode != HTTP.CREATED) {
     log.error(`Couldn't create playlist: ${result.res.statusCode}, ` +
-      `user=${userId}, playlist name=${name}`)
+      `user=${userId}, playlist name=${opts.name}`)
     return;
   }
 
