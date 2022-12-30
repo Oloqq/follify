@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-rou
 import GlobalStyle from './globalStyles';
 import Home from './pages/homePage/Home';
 import SettingsPage from './pages/settingsPage/SettingsPage';
+import Login from './pages/loginPage/Login';
 
 
 
@@ -12,8 +13,9 @@ function App() {
             <GlobalStyle/>
             <Navbar/>
             <Routes>
-                <Route exact path='/' exact element={<Home />} />
-                <Route path='/settings' element={<SettingsPage/> } />
+                <Route exact path='/' element={<Home />} />
+                <Route path='/settings' element={<SettingsPage />} />
+                <Route path='/login' element={<Login />} />
             </Routes>
         </Router>
   );

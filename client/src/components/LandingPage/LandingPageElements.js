@@ -16,8 +16,6 @@ export const MainWrapper = styled.div`
   }
 `
 
-
-
 export const Img = styled.img`
     width: 300px;
     height: auto;
@@ -28,3 +26,28 @@ export const Img = styled.img`
     display: inline-block;
     max-height: 500px;
 `;
+
+export const Href = styled.a`
+    display: flex;
+    justify-content: center;
+    background: ${({ primary }) => (primary ? '#1ED760' : '#fff')};
+    padding: ${({ big }) => (big ? '12px 64px' : '10px 20px')};
+    font-size: ${({ fontBig }) => (fontBig ? '20px' : '16px')};
+    outline: none;
+    border: none;
+    cursor: pointer;
+    color: ${({ primary }) => (primary ? '#fff' : '#1ED760')};
+    border-radius: 4px;
+    white-space: nowrap;
+    text-decoration: none;
+
+    &:hover {
+        transition: all 0.3s ease-out;
+        background: #fff;
+        color: #1ED760;
+    }
+
+    @media screen and (max-width: 960px) {
+        width: 100%;
+    }
+`

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import logo from '../../images/Logo.svg';
 import { Container, Button } from '../../globalStyles';
-import { Img, MainWrapper } from './LandingPageElements';
+import { Img, MainWrapper, Href } from './LandingPageElements';
+import { Navigate, Navigator } from 'react-router-dom';
 
 
 function LandingPage() {
@@ -13,7 +13,7 @@ function LandingPage() {
                 <MainWrapper>
                     <h2>Connect and stay up to date with your favourite music!</h2>
                 </MainWrapper>
-                <Button primary>CONNECT</Button>
+                <Href primary target="_self" href="/login">CONNECT</Href>
             </Container>
         </>
     );

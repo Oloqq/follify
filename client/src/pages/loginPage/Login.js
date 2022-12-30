@@ -1,13 +1,11 @@
 import React from 'react';
-import { LandingPage }  from '../../components'
+import { LoginWindow } from '../../components';
 
-function Home() {
+export default function Login() {
     return (
         <>
-            <LandingPage>
-            </LandingPage>
+            <LoginWindow>
+            </LoginWindow>
         </>
     );
 };
-
-export default Home;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { Nav, NavbarContainer, NavIcon, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, NavItemBtn, NavBtn } from './navbarElements';
+import { Nav, NavbarContainer, NavIcon, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, NavItemBtn, NavBtn} from './navbarElements';
 import { Button } from '../../globalStyles';
 import { IconContext } from 'react-icons/lib';
 
@@ -54,11 +54,11 @@ const Navbar = () => {
                             </NavItem>
                             <NavItemBtn>
                                 {button ? (
-                                    <NavBtn to='/log-in'>
+                                    <NavBtn to='/login'>
                                         <Button primary onClick={login}>Log In</Button>
                                     </NavBtn>
                                 ) : (
-                                        <NavBtn to='/log-in'>
+                                        <NavBtn to='/login'>
                                             <Button fontBig primary onClick={login}>Log In</Button>
                                     </NavBtn>
                                 )}

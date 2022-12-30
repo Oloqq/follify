@@ -32,20 +32,20 @@ export const Container = styled.div`
 `
 
 export const Button = styled.button`
-    background: ${({ primary }) => (primary ? '#1ED760' : '#3C2F3D')};
+    background: ${({ primary }) => (primary ? '#1ED760' : '#fff')};
     padding: ${({ big }) => (big ? '12px 64px' : '10px 20px')};
     font-size: ${({ fontBig }) => (fontBig ? '20px' : '16px')};
     outline: none;
     border: none;
     cursor: pointer;
-    color: #fff;
+    color: ${({ primary }) => (primary ? '#fff' : '#1ED760')};
     border-radius: 4px;
     white-space: nowrap;
 
     &:hover {
         transition: all 0.3s ease-out;
-        background: #fff;
-        background: ${({ primary }) => (primary ? '#3C2F3D' : '#1ED760')};
+        color: #1ED760;
+        background: ${({ primary }) => (primary ? '#fff' : '#1ED760')};
     }
 
     @media screen and (max-width: 960px) {
