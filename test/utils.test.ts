@@ -3,7 +3,12 @@ import { DateSpan, SpotiDate } from "../src/utils";
 
 describe("SpotiDate", () => {
   it("accepts only correct format", () => {
+    expect(() => new SpotiDate("")).throws();
     expect(() => new SpotiDate("2022-1-1")).throws();
+    expect(() => new SpotiDate("2022-11-111")).throws();
+    expect(() => new SpotiDate("2022-111-11")).throws();
+    expect(() => new SpotiDate("20222-11-11")).throws();
+    expect(() => new SpotiDate("22-11-11")).throws();
     expect(() => new SpotiDate("2022-01-01")).not.throws();
     expect(() => new SpotiDate("2022-01-03")).not.throws();
   })

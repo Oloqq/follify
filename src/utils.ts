@@ -10,7 +10,7 @@ export class SpotiDate {
   value: string;
 
   constructor(val: string) {
-    let regex = /[0-9]{4}-[0-9]{2}-[0-9]{2}/g
+    let regex = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/g
     if (!regex.test(val)) {
       throw new Error(`date not in spotifyish format of YYYY-MM-DD: (${val})`);
     }
