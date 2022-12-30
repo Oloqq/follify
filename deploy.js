@@ -88,5 +88,8 @@ function execHandler({error, stdout, stderr}) {
   await (execPromise(command).then(execHandler));
   if (!success) {
     console.error("[ERROR] deployment failed");
+  } else {
+    console.log("Deployment successful");
+    console.log(depRepo);
   }
 })();
