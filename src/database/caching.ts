@@ -2,7 +2,7 @@
 
 import fs from "fs"
 import sqlite3, { Database } from "sqlite3";
-import { dblog as log } from "../logs";
+import { cachelog as log } from "../logs";
 import { DateSpan } from "../utils";
 
 export class CacheDB {
@@ -14,8 +14,8 @@ export class CacheDB {
     this.db = new sqlite3.Database(dbPath);
   }
 
-  put(artist: Artist, album: Album, tracks: Track[]): boolean {
-    return false;
+  put(artist: Artist, album: Album, tracks: Track[]): void {
+
   }
 
   get(artist: Artist, period: DateSpan): Promise<Track[]>|undefined {

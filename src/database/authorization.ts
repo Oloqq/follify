@@ -2,7 +2,7 @@
 
 import fs from "fs"
 import sqlite3, { Database } from "sqlite3";
-import { dblog as log } from "../logs";
+import { authlog as log } from "../logs";
 
 export class AuthDB {
   db: Database;
@@ -29,22 +29,19 @@ export class AuthDB {
     }
   }
 
-  put(data: UserTokens): boolean {
+  put(data: UserTokens): void {
     var sql = `INSERT INTO authorization(id_auth, access_token, expiry, refresh_token)
       VALUES (?, ?, ?, ?)
       ON CONFLICT(id_auth) DO UPDATE
         SET access_token=?2, expiry=?3, refresh_token=?4
         WHERE id_auth='?1'`;
-    let success = true;
     this.db.run(sql, [data.userId, data.accessToken, data.expiry, data.refreshToken], (err: any) => {
       if (err) {
-        success = false;
         log.error('Failed to put a user. ', err);
       } else {
         log.info('User data upserted for: ', data.userId);
       }
     });
-    return success;
   }
 
   get(id: string): Promise<UserTokens> {
