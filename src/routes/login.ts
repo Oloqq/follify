@@ -14,13 +14,18 @@ export function initRoutes(app: Express) {
   app.get("/login", (req: Request, res: Response) => {
     log.info("Login attempt");
 
-    res.redirect("https://accounts.spotify.com/authorize?" +
+    const link = "https://accounts.spotify.com/authorize?" +
       querystring.stringify({
         response_type: "code",
         client_id: env.clientId,
         scope: scopes,
         redirect_uri: env.callback,
-      }));
+      });
+
+    res.status(200).json({
+      success: true,
+      redirectUrl: link
+    });
   });
 }
 
