@@ -3,6 +3,7 @@ import logo from '../../images/Logo.svg';
 import { Container } from '../../globalStyles';
 import { Img, MainWrapper } from '../LandingPage/LandingPageElements';
 import { Par, Href } from '../LoginWindow/LoginWindowElements';
+import { redirect } from 'react-router-dom';
 
 const LoginWindow = () => {
     function login() {
@@ -10,7 +11,8 @@ const LoginWindow = () => {
         .then(res => res.json())
         .then(data => {
           console.log("body", data.redirectUrl);
-          this.history.pushState(null, data.redirectUrl);
+        //   redirect(this.history.pushState(null, data.redirectUrl));
+        window.location.href = data.redirectUrl;
         });
     }
 

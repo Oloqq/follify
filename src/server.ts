@@ -9,7 +9,7 @@ import log from "./logs"
 global.appRoot = path.resolve(__dirname);
 
 const app = express();
-// app.use(cors({credentials: true, origin: 'http://localhost:3000'})); // it somehow works without it? wtf?
+app.use(cors({credentials: true, origin: 'http://localhost:3000'})); // it somehow works without it? wtf?
 app.use(session({
   secret: env.sessionSecret || process.exit(1),
   saveUninitialized: true,
