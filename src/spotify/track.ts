@@ -1,4 +1,8 @@
-export function extractPrefixedIds(tracks: Track[]): string[] {
-  return tracks.map(track => "spotify:track:" + track.id);
+export function extractPrefixedIds(tracks: Map<string, Track>): string[] {
+  let res: string[] = [];
+  tracks.forEach(track => {
+    res.push(`spotify:track:${track.id}`);
+  })
+  return res;
 }
 

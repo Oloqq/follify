@@ -12,14 +12,22 @@
 
 <body>
   use the front-end on a different port buddy
-
+  <br>
   <form action="/login" method="get">
     <input type="submit" value="login">
   </form>
 
+  <h3> playlist creation </h3>
+
   <form action="/playlistnow" method="post">
-    <input type="submit" value="playlistnow">
+    name: <input type="text" name="name"><br>
+    startDate [YYYY-MM-DD]: <input type="text" name="startDate"><br>
+    endDate [YYYY-MM-DD]: <input type="text" name="endDate"><br>
+    public: <input type="checkbox" name="public" value="true"><br>
+    <input type="submit" value="submit playlistnow">
   </form>
+
+  <h3>diagnostics</h3>
 
   <form action="/following" method="get">
     <input type="submit" value="following">

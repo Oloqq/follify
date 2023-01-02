@@ -1,6 +1,6 @@
 {
   "name": "follify",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Spotify playlist creator",
   "main": "src/server.ts",
   "scripts": {
@@ -9,7 +9,7 @@
     "test": "jest",
     "db": "node ./dbfuncs/manage.js",
     "jinit": "jest --init",
-    "tmp": "ts-node-dev --files src/tmp.ts"
+    "dev": "ts-node-dev --files"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "@babel/preset-env": "^7.19.4",
     "@babel/preset-typescript": "^7.18.6",
     "@types/chai": "^4.3.3",
+    "@types/cookie-session": "^2.0.44",
     "@types/cors": "^2.8.12",
     "@types/expect": "^24.3.0",
     "@types/express": "^4.17.14",
@@ -33,13 +34,16 @@
     "@types/jest": "^29.1.2",
     "@types/sqlite3": "^3.1.8",
     "babel-jest": "^29.2.0",
+    "fs-extra": "^11.1.0",
     "jest": "^29.2.0",
+    "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.8.4"
   },
   "dependencies": {
     "chai": "^4.3.6",
+    "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
