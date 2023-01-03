@@ -46,11 +46,11 @@ function askForToken(data: TokenRqData): Promise<SpotifyTokens> {
   })
 }
 
-export function requestToken(code: string): Promise<SpotifyTokens> {
+export function requestToken(code: string, callback: string = env.callback): Promise<SpotifyTokens> {
   return askForToken({
     grant_type: "authorization_code",
     code: code,
-    redirect_uri: env.callback,
+    redirect_uri: callback,
   })
 }
 

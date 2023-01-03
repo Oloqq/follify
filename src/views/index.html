@@ -7,18 +7,31 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Follify api</title>
+  <link rel="stylesheet" href="pico.min.css">
+  <title>Follify backend panel</title>
+  <style>
+    html {
+      font-family: system-ui, "Segoe UI";
+    }
+  </style>
+  <script>
+    function login() {
+      fetch("/login?panel=1", { method: "GET" })
+        .then(res => res.json())
+        .then(data => {
+          window.location.href = data.redirectUrl;
+        });
+    }
+  </script>
 </head>
 
 <body>
-  use the front-end on a different port buddy
-  <br>
-  <form action="/login" method="get">
+  <h3> login </h3>
+  <form onsubmit="login()">
     <input type="submit" value="login">
   </form>
 
   <h3> playlist creation </h3>
-
   <form action="/playlistnow" method="post">
     name: <input type="text" name="name"><br>
     startDate [YYYY-MM-DD]: <input type="text" name="startDate"><br>
@@ -28,7 +41,6 @@
   </form>
 
   <h3>diagnostics</h3>
-
   <form action="/following" method="get">
     <input type="submit" value="following">
   </form>

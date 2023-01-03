@@ -19,7 +19,7 @@ export function initRoutes(app: Express) {
         response_type: "code",
         client_id: env.clientId,
         scope: scopes,
-        redirect_uri: env.callback,
+        redirect_uri: req.query["panel"] ? env.panelCallback : env.callback,
       });
 
     res.status(200).json({

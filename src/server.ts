@@ -9,7 +9,7 @@ import log from "./logs"
 global.appRoot = path.resolve(__dirname);
 
 const app = express();
-app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+app.use(cors({credentials: true, origin: env.frontend}));
 app.use(session({
   secret: env.sessionSecret || process.exit(1)
 }));

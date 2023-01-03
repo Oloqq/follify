@@ -21,6 +21,8 @@ export class Environment {
   static readonly nodeEnv = assertEnv("NODE_ENV");
   static readonly port = assertEnv("PORT");
   static readonly frontend = assertEnv("FRONTEND");
+  static readonly panel = assertEnv("PANEL");
+  static readonly panelCallback = assertEnv("PANEL_CALLBACK");
   static readonly sessionSecret = assertEnv("SESSION_SECRET");
   static readonly errorPage = "https://www.youtube.com/watch?v=kpwNjdEPz7E";
 }
