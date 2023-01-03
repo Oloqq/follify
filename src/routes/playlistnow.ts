@@ -3,8 +3,9 @@ import "../sessionData";
 import log from "../logs";
 import HTTP from "../HttpStatusCode"
 import authorizator from "../authorization";
-import { DateSpan } from "../utils";
+import { DateSpan, SpotiDate } from "../utils";
 import { gatherTracks } from "../gathering";
+import moment from "moment";
 
 import * as spotify from "../spotify/api";
 import { createPlaylist, addTracksToPlaylist, PlaylistOptions } from "../spotify/playlist";
@@ -17,7 +18,10 @@ function extractPeriod(user: string, rq: any): DateSpan {
   }
   else {
     // TODO make database call for config
-    throw new Error("No period given");
+    log.warn("Defaulting period");
+    const monthBack = moment().subtract(1, 'month');
+    const now = moment();
+    return new DateSpan(SpotiDate.fromMoment(monthBack), SpotiDate.fromMoment(now));
   }
 }
 

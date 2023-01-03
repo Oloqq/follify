@@ -1,3 +1,5 @@
+import { Moment } from "moment";
+
 export function splitArray<T>(arr: T[], chunkSize: number): T[][] {
   let res: T[][] = [];
   for (let i = 0; i < arr.length; i += chunkSize) {
@@ -19,6 +21,14 @@ export class SpotiDate {
 
   toString(): string {
     return this.value;
+  }
+
+  static fromMoment(mom: Moment) {
+    return new SpotiDate(mom.format("YYYY-MM-DD"));
+  }
+
+  static fromDate(date: Date): SpotiDate {
+    return new SpotiDate(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDay()}`);
   }
 }
 
