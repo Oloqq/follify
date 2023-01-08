@@ -2,10 +2,19 @@ import React from 'react';
 import logo from '../../images/Logo.svg';
 import { Container, Button } from '../../globalStyles';
 import { Img, MainWrapper, Href } from './LandingPageElements';
-import { Navigate, Navigator } from 'react-router-dom';
 
 
 function LandingPage() {
+
+    function login() {
+        fetch("http://localhost:5000/login", { method: "GET", credentials: "include", mode: "cors" })
+        .then(res => res.json())
+        .then(data => {
+          console.log("body", data.redirectUrl);
+        window.location.href = data.redirectUrl;
+        });
+    }
+    
     return (
         <>
             <Container>
@@ -13,7 +22,7 @@ function LandingPage() {
                 <MainWrapper>
                     <h2>Connect and stay up to date with your favourite music!</h2>
                 </MainWrapper>
-                <Href primary target="_self" href="/login">CONNECT</Href>
+                <Href primary onClick={login}>CONNECT</Href>
             </Container>
         </>
     );
