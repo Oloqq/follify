@@ -24,17 +24,22 @@ function SettingsPage() {
     }
 
     function submit(e) {
-        fetch("http://localhost:5000/playlistnow", {method: "POST", credentials: "include", mode: "cors", body: {
+        fetch("http://localhost:5000/playlistnow", {method: "POST", credentials: "include", mode: "cors",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
             name: data.title,
             description: data.description,
             public: data.priv,
             startDate: data.startDate,
             endDate: data.endDate
-        }}).then(res => {
+        })}).then(res => {
             console.log(res.data)
         })
     }
-    
+
     function defaultconfig() {
         fetch("http://localhost:5000/setup", {method: "GET", credentials: "include", mode: "cors", redirect: "follow"}).then((res) => {
             if (!res.ok) {
@@ -42,22 +47,22 @@ function SettingsPage() {
             }
         })
     }
-    
+
     function saveConfig() {
         fetch("http://localhost:5000/setup", {method: "POST", credentials: "include", mode: "cors"})
     }
-    
+
     function getConfig() {
         fetch("http://localhost:5000/setup", {method: "GET", credentials: "include", mode: "cors"})
     }
-    
+
 
     return (
         <>
             {/* NEW LAYOUT */}
             <FormContainer>
                 <Img src={logo} alt='logo-follify' />
-                <MainWrapper>  
+                <MainWrapper>
                     <LeftSideWrapper>
                         <Form id="playlist-form" onSubmit={(e) => submit(e)}>
                             <H2>Create playlist by yourself!</H2>
@@ -80,7 +85,7 @@ function SettingsPage() {
                                 </DateWrapper>
                             </Dates>
                             <Btn primary type='submit'>Create playlist now!</Btn>
-                        </Form> 
+                        </Form>
                     </LeftSideWrapper>
                     <RightSideWrapper>
                         <FormRight>

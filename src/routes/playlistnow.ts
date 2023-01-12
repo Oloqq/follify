@@ -27,13 +27,12 @@ function extractPeriod(user: string, rq: any): DateSpan {
 
 function extractPlaylistMeta(rq: any, period: DateSpan): PlaylistOptions {
   return {
-    name: !rq || rq.name == "" ? `Follify! ${period}` : rq.name,
-    description: rq.description, //undefined is fine
-    public: (rq.public && rq.public != "false") ? true : false,
+    name: typeof rq != "object" || !rq.name || rq.name == "" ? `Follify! ${period}` : rq.name,
+    description: typeof rq != "object" ? rq.description : rq.description, //undefined is fine
+    public: (typeof rq == "object" && rq.public && rq.public != "false") ? true : false, //ternary operator is necessary because javascript prefers evaluation to undefined instead of false
   };
 }
 
-//FIXME need thorough testing
 function gatherConfig(user: string, rq: any): [DateSpan, PlaylistOptions] {
   let period = extractPeriod(user, rq);
   return [period, extractPlaylistMeta(rq, period)];
@@ -57,7 +56,7 @@ export function initRoutes(app: Express) {
       res.sendStatus(HTTP.BAD_REQUEST);
       return;
     }
-
+    log.info(`Request for a playlist: period: ${period}, public: ${opts.public}, name: ${opts.name}, desc: ${opts.description}, rq: ${JSON.stringify(req.body)}`)
     let token: string;
     let trackIds: string[];
 
