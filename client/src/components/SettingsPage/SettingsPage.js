@@ -1,9 +1,9 @@
 import React from 'react';
-import { Img, MainWrapper, RightSideWrapper, LeftSideWrapper, Slider, Input, Checkbox, Row, CheckboxLabel, Date, Label, Form, Btn, H2, TextArea, Dates, DataList, Option, FormContainer, DateWrapper, RightH2, FormRight, ButtonWrapper } from './SettingsElements';
+import { Img, MainWrapper, RightSideWrapper, LeftSideWrapper, Slider, Input, Checkbox, Row, CheckboxLabel, Date, Label, Form, Btn, H2, TextArea, Dates, DataList, Option, FormContainer, DateWrapper, RightH2, FormRight, ButtonWrapper } from './SettingsPageElements';
 import logo from '../../images/Logo.svg';
 
 
-const Settings = () => {
+function SettingsPage() {
     
     function playlistnow() {
 
@@ -104,4 +104,4 @@ const Settings = () => {
     );
 }
 
-export default Settings;
+export default SettingsPage;
