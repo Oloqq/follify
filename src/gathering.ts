@@ -7,7 +7,7 @@ import { DateSpan } from "./utils";
 export async function appendFromArtist(artist: Artist, token: string, period: DateSpan, albums: Map<string, Album>, tracks: Map<string, Track>) {
   let cachedTracks = await cacheDB.get(artist, period);
   if (cachedTracks === undefined) {
-    let unfiltered = await spotify.artist.getAlbums(token, artist.id, {limit: 1});
+    let unfiltered = await spotify.artist.getAlbums(token, artist.id, {limit: 10});
     let filtered = unfiltered.filter(album => period.contains(album.release));
     filtered.forEach(album => { albums.set(album.id, album) });
 
