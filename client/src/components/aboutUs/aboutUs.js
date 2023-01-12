@@ -2,6 +2,7 @@ import {Title, Subtitle, MainWrapper, Person, PhotoContainer, Photo, Name, Desc,
 import person from '../../images/person.png';
 
 
+
 function AboutUs() {
 
     return (

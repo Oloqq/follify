@@ -13,7 +13,7 @@ function SettingsPage() {
         startDate: "",
         endDate: "",
         priv: false,
-        slider: 0
+        slider: 16
     })
 
     function handle(e) {
@@ -23,20 +23,30 @@ function SettingsPage() {
         console.log(newData)
     }
 
-    function submit(e) {
-        fetch("http://localhost:5000/playlistnow", {method: "POST", credentials: "include", mode: "cors", body: {
-            name: data.title,
-            description: data.description,
-            public: data.priv,
-            startDate: data.startDate,
-            endDate: data.endDate
-        }}).then(res => {
-            console.log(res.data)
-        })
-    }
+    async function submit() {
+        const res = fetch("http://localhost:5000/playlistnow", {
+            method: "POST", 
+            credentials: "include", 
+            headers: {
+                "Accept": 'application/json',
+                "Content-Type": "application/json"
+            },
+            mode: "cors", 
+            body: JSON.stringify({
+                name: data.title,
+                description: data.description,
+                public: data.priv,
+                startDate: data.startDate,
+                endDate: data.endDate
+        })});
+
+        const content = await res.json();
+        console.log(content);
+
+    };
     
     function defaultconfig() {
-        fetch("http://localhost:5000/setup", {method: "GET", credentials: "include", mode: "cors", redirect: "follow"}).then((res) => {
+        fetch("http://localhost:5000/setup", {method: "GET", credentials: "include", mode: "cors"}).then((res) => {
             if (!res.ok) {
                 throw new Error("Bad response")
             }
@@ -96,14 +106,13 @@ function SettingsPage() {
                             </DataList>
                             <CheckboxLabel right htmlFor="sub">Subscribed:</CheckboxLabel>
                             <Checkbox right defaultChecked type="checkbox" id="sub"></Checkbox>
-                            <Btn type='submit'>Create playlist now!</Btn>
+                            <Btn type='submit'>Save configuration</Btn>
                         </FormRight>
                     </RightSideWrapper>
                 </MainWrapper>
                     <ButtonWrapper>
                         <Btn primary onClick={defaultconfig}>Restore defaults</Btn>
                         <Btn primary>Unsubscribe</Btn>
-                        <Btn primary onClick={saveConfig}>Save configuration</Btn>
                     </ButtonWrapper>
             </FormContainer>
         </>

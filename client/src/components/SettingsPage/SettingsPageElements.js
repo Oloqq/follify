@@ -23,6 +23,9 @@ export const Btn = styled.button`
         background: #fff;
         background: ${({ primary }) => (primary ? '#4bdf80' : '#f5f5f5')};
         color: ${({ primary }) => (primary ? '#fff' : '#1ED760')};
+        -webkit-box-shadow: 5px 2px 10px -2px rgba(167, 167, 175, 1);
+        -moz-box-shadow: 5px 2px 10px -2px rgba(167, 167, 175, 1);
+        box-shadow: 5px 2px 10px -2px rgba(167, 167, 175, 1);
     }
 
     @media screen and (max-width: 960px) {
@@ -132,7 +135,7 @@ export const RightSideWrapper = styled.div`
   
 export const Input = styled.input`
     margin-bottom: 1rem;
-    border: 2px solid white;
+    border: 2px solid #1ED760;
     border-radius: 3px;
     color: white;
     padding: 0.2rem;
@@ -140,7 +143,9 @@ export const Input = styled.input`
 
     &:focus {
         outline: none;
-        border: 2px solid #1ED760;
+        -webkit-box-shadow: 5px 2px 10px -2px rgba(167, 167, 175, 1);
+        -moz-box-shadow: 5px 2px 10px -2px rgba(167, 167, 175, 1);
+        box-shadow: 5px 2px 10px -2px rgba(167, 167, 175, 1);
     }
 `
   
@@ -148,7 +153,7 @@ export const TextArea = styled.textarea`
     resize: none;
     max: 100;
     margin-bottom: 1rem;
-    border: 2px solid white;
+    border: 2px solid #1ED760;
     border-radius: 3px;
     color: white;
     background-color: #1ED760;
@@ -156,6 +161,9 @@ export const TextArea = styled.textarea`
     &:focus {
         outline: none;
         border: 2px solid #1ED760;
+        -webkit-box-shadow: 5px 2px 10px -2px rgba(167, 167, 175, 1);
+        -moz-box-shadow: 5px 2px 10px -2px rgba(167, 167, 175, 1);
+        box-shadow: 5px 2px 10px -2px rgba(167, 167, 175, 1);
     }
 `
   
@@ -186,6 +194,9 @@ export const Date = styled.input`
     &:focus {
         border: 2px solid #1ED760;
         outline: none;
+        -webkit-box-shadow: 5px 2px 10px -2px rgba(167, 167, 175, 1);
+        -moz-box-shadow: 5px 2px 10px -2px rgba(167, 167, 175, 1);
+        box-shadow: 5px 2px 10px -2px rgba(167, 167, 175, 1);
     }
 `
 
@@ -198,7 +209,7 @@ export const CheckboxLabel = styled.label`
 
 export const Form = styled.form`
     display: flex;
-    justify content: flex-end;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
 
@@ -233,7 +244,6 @@ export const FormContainer = styled.div`
     justify-content: center;
     align-items: center;
     gap: 50px;
-    // background-color: white;
     hegith: 100%;
 `
 
@@ -244,7 +254,6 @@ export const DateWrapper = styled.div`
 export const ButtonWrapper = styled.div`
     display: flex;
     flex-direction: row;
-    // background-color: white;
 `
 
 export const Img = styled.img`
