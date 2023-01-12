@@ -23,28 +23,23 @@ function SettingsPage() {
         console.log(newData)
     }
 
-    async function submit() {
-        const res = fetch("http://localhost:5000/playlistnow", {
-            method: "POST", 
-            credentials: "include", 
-            headers: {
-                "Accept": 'application/json',
-                "Content-Type": "application/json"
-            },
-            mode: "cors", 
-            body: JSON.stringify({
-                name: data.title,
-                description: data.description,
-                public: data.priv,
-                startDate: data.startDate,
-                endDate: data.endDate
-        })});
+    function submit(e) {
+        fetch("http://localhost:5000/playlistnow", {method: "POST", credentials: "include", mode: "cors",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: data.title,
+            description: data.description,
+            public: data.priv,
+            startDate: data.startDate,
+            endDate: data.endDate
+        })}).then(res => {
+            console.log(res.data)
+        })
+    }
 
-        const content = await res.json();
-        console.log(content);
-
-    };
-    
     function defaultconfig() {
         fetch("http://localhost:5000/setup", {method: "GET", credentials: "include", mode: "cors"}).then((res) => {
             if (!res.ok) {
@@ -52,22 +47,22 @@ function SettingsPage() {
             }
         })
     }
-    
+
     function saveConfig() {
         fetch("http://localhost:5000/setup", {method: "POST", credentials: "include", mode: "cors"})
     }
-    
+
     function getConfig() {
         fetch("http://localhost:5000/setup", {method: "GET", credentials: "include", mode: "cors"})
     }
-    
+
 
     return (
         <>
             {/* NEW LAYOUT */}
             <FormContainer>
                 <Img src={logo} alt='logo-follify' />
-                <MainWrapper>  
+                <MainWrapper>
                     <LeftSideWrapper>
                         <Form id="playlist-form" onSubmit={(e) => submit(e)}>
                             <H2>Create playlist by yourself!</H2>
@@ -90,7 +85,7 @@ function SettingsPage() {
                                 </DateWrapper>
                             </Dates>
                             <Btn primary type='submit'>Create playlist now!</Btn>
-                        </Form> 
+                        </Form>
                     </LeftSideWrapper>
                     <RightSideWrapper>
                         <FormRight>
