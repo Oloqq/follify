@@ -6,13 +6,14 @@ import { Img, MainWrapper, Href } from './LandingPageElements';
 
 function LandingPage() {
 
+    var authenticated = false;
+
     function login() {
         fetch("http://localhost:5000/login", { method: "GET", credentials: "include", mode: "cors" })
         .then(res => res.json())
         .then(data => {
-          console.log("body", data.redirectUrl);
-        window.location.href = data.redirectUrl;
-        });
+            window.location.href = data.redirectUrl;
+        })
     }
     
     return (

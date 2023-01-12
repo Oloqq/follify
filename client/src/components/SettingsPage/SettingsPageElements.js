@@ -70,6 +70,7 @@ export const MainWrapper = styled.div`
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
+    // flex-wrap: wrap;
 
     background-color: #1ED760;
 
@@ -80,12 +81,18 @@ export const MainWrapper = styled.div`
     -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
     -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
     box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+
+    @media screen and (max-width: 960px) {
+        flex-direction: column;
+        margin: 0;
+    }
 `
   
 export const H2 = styled.h2`
-    color: #1ED760;
     padding-bottom: 1rem;
+    color: #3C2F3D;
     background-color: white;
+    text-shadow: 4px 4px 10px rgba(181, 185, 191, 1);
 `
 
 export const RightH2 = styled.h2`
@@ -103,9 +110,9 @@ export const LeftSideWrapper = styled.div`
     border-top-right-radius: 10px;
     // border-bottom-right-radius: 5px;
 
-    -webkit-box-shadow: 8px 11px 15px -15px rgba(87, 87, 105, 1);
-    -moz-box-shadow: 8px 11px 15px -15px rgba(87, 87, 105, 1);
-    box-shadow: 8px 11px 15px -15px rgba(87, 87, 105, 1);
+    @media screen and (max-width: 960px) {
+        border-bottom-left-radius: 0;
+    }
     
 `
 
@@ -116,9 +123,11 @@ export const RightSideWrapper = styled.div`
     background-color: #1ED760;
     border-top-right-radius: 10px;
 
-    // -webkit-box-shadow: -6px 3px 15px -6px rgba(66, 68, 90, 1);
-    // -moz-box-shadow: -6px 3px 15px -6px rgba(66, 68, 90, 1);
-    // box-shadow: -6px 3px 15px -6px rgba(66, 68, 90, 1);
+    @media screen and (max-width: 960px) {
+        padding: 20px 0;
+        border-bottom-left-radius: 10px;
+        border-top-right-radius: 0;
+    }
 `
   
 export const Input = styled.input`
@@ -156,10 +165,12 @@ export const Row = styled.span`
 `
   
 export const Label = styled.label`
-    color: ${({ right }) => (right ? '#fff' : '#1ED760')};
+    color: ${({ right }) => (right ? '#fff' : '#3C2F3D')};
     background-color: ${({ right }) => (right ? '#1ED760' : '#fff')};
     display: block;
     padding-bottom: 0.2rem;
+    font-weight: 200;
+    text-shadow: 2px 2px 10px rgba(181, 185, 191, 1);
 `
 
 export const Date = styled.input`
@@ -181,7 +192,7 @@ export const Date = styled.input`
 export const CheckboxLabel = styled.label`
     display: inline;
     margin: 0.5rem;
-    color: ${({ right }) => (right ? '#fff' : '#1ED760')};
+    color: ${({ right }) => (right ? '#fff' : '#3C2F3D')};
     background-color: ${({ right }) => (right ? '#1ED760' : '#fff')};
 `
 
@@ -199,11 +210,11 @@ export const FormRight = styled.form`
     justify content: flex-end;
     align-items: center;
     flex-direction: column;
+    padding: 0 10px;
 
     background-color: #1ED760;
     
 `
-
 
 export const Dates = styled.div`
     display: flex;
@@ -247,3 +258,8 @@ export const Img = styled.img`
     max-height: 500px;
     // background-color: #f5f5f5;
 `;
+
+export const Counter = styled.span`
+    font-size: 20px;
+    background-color: #1ED760;
+`

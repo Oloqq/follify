@@ -88,6 +88,23 @@ export const NavItem = styled.li`
         }
     }
 `
+export const NavItemSettings = styled.li`
+    height: 80px;
+    border-bottom: 2px solid transparent;
+    display: ${({ hide }) => (hide ? 'none' : 'inline')};
+
+    &:hover {
+        border-bottom: 2px solid #1ED760;
+    }
+
+    @media screen and (max-width: 960px) {
+        width: 100%;
+
+        &:hover {
+            border: none;
+        }
+    }
+`
 
 export const NavLinks = styled(Link)`
     color: #fff;

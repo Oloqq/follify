@@ -8,7 +8,7 @@ function AboutUs() {
         <>
             <HeaderContainer>
                 <Title>About Us</Title>
-                <Subtitle>Here is something about the creators of this application!</Subtitle>
+                <Subtitle>Here is something about the creators!</Subtitle>
             </HeaderContainer>
             <MainWrapper>
                 <Person>

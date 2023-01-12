@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    
 `
 
 export const Title = styled.h1`
@@ -17,9 +18,10 @@ export const Title = styled.h1`
 
 export const Subtitle = styled.h4`
     color: white;
+    flex-basis: auto;
     font-size: 21px;
     font-weight: 200;
-    padding: 1rem 0;
+    padding: 1rem auto;
     margin-bottom: 3rem;
 `
 
@@ -29,7 +31,13 @@ export const MainWrapper = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 2rem;
+
+    @media screen and (max-width: 819px) {
+        // flex-wrap: wrap;
+        // flex-direction: column;
+    }
 `
 
 export const Person = styled.div`
