@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         background-color: #3C2F3D;
+        position: relative;
     }
 `
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../../images/Logo.svg';
-import { Container, Button } from '../../globalStyles';
+import { Container } from '../../globalStyles';
 import { Img, MainWrapper, Href } from './LandingPageElements';
 
 
