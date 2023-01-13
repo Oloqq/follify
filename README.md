@@ -21,11 +21,12 @@
 1. Go to project root and `npm start`
 
 # Development
+
 ## Setup
 1. Perform the steps described in *Hosting locally* section
 2. Go to `/client` and `npm install` to prepare React app for development
 3. Adjust environment variables (`.env`) to use React's port during development
-   1. Alternatively, each time you update React app `npm build` and copy `client/build` folder to `src/views`
+   1. Alternatively, each time you update React app `npm build` in `client` and copy `client/build` folder to `src/views`
 
 ## Run
 1. Open two terminals
@@ -51,3 +52,14 @@
 
   webpack compiled successfully
   ```
+
+# Deployment
+
+1. Build the React app by running `npm run build` in `client`
+2. Copy `client/build` to `src/views`
+3. Run deployment script with `npm run deploy`. The script will output complete compiled app in `dist`.
+4. The script will force-push contents of `dist` to a github repo so that it can be imported on a hosting service. Edit `deploy.js` to change that repo's link or disable that behavior.
+5. Import the packaged code on your hosting service
+6. Set environment variables by analogy to those in `.env`. Set `NODE_ENV=production`
+7. Install dependencies with `npm install`
+8. Start the app with `npm start`
