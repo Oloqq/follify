@@ -1,5 +1,5 @@
 import { Logger } from "../types/log";
-import simpleNodeLogger from 'simple-node-logger';
+import simpleNodeLogger from "simple-node-logger";
 
 function loggerByEnv(logname: string): Logger {
   if (process.env.NODE_ENV === "test") {

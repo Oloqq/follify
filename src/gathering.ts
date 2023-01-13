@@ -4,7 +4,13 @@ import { getFollowing } from "./spotify/user";
 import * as spotify from "./spotify/api";
 import { DateSpan } from "./utils";
 
-export async function appendFromArtist(artist: Artist, token: string, period: DateSpan, albums: Map<string, Album>, tracks: Map<string, Track>) {
+export async function appendFromArtist(
+    artist: Artist,
+    token: string,
+    period: DateSpan,
+    albums: Map<string,
+    Album>,
+    tracks: Map<string, Track>) {
   let cachedTracks = await cacheDB.get(artist, period);
   if (cachedTracks === undefined) {
     let unfiltered = await spotify.artist.getAlbums(token, artist.id, {limit: 10});
@@ -37,7 +43,7 @@ export function gatherTracks(token: string, period: DateSpan): Promise<Map<strin
   })
   .then(async ({ albums, tracksFromCache }) => {
     let tracks: Map<string, Track> = tracksFromCache;
-    for (let [id, album] of albums) {
+    for (let [id, _] of albums) {
       (await spotify.album.getTracks(token, id))
       .forEach(track => {
         tracks.set(track.id, track);

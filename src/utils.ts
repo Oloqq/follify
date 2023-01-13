@@ -11,6 +11,14 @@ export function splitArray<T>(arr: T[], chunkSize: number): T[][] {
 export class SpotiDate {
   value: string;
 
+  static fromMoment(mom: Moment): SpotiDate {
+    return new SpotiDate(mom.format("YYYY-MM-DD"));
+  }
+
+  static fromDate(date: Date): SpotiDate {
+    return new SpotiDate(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDay()}`);
+  }
+
   constructor(val: string) {
     let regex = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/g
     if (!regex.test(val)) {
@@ -21,14 +29,6 @@ export class SpotiDate {
 
   toString(): string {
     return this.value;
-  }
-
-  static fromMoment(mom: Moment) {
-    return new SpotiDate(mom.format("YYYY-MM-DD"));
-  }
-
-  static fromDate(date: Date): SpotiDate {
-    return new SpotiDate(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDay()}`);
   }
 }
 

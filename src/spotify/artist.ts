@@ -20,7 +20,7 @@ export class GetAlbumPref {
 
 //TODO implement paging just in case, and to save transfer on fist call
 //TODO change id: string to artist: Artist|string
-export function getAlbums(token: string, id: string, pref = new GetAlbumPref()): Promise<Album[]> {
+export function getAlbums(token: string, id: string, pref: GetAlbumPref = new GetAlbumPref()): Promise<Album[]> {
   return urllib.request(`https://api.spotify.com/v1/artists/${id}/albums?`
     + querystring.stringify({
       // TODO handle appears_on (see bottom of the file)
@@ -34,7 +34,7 @@ export function getAlbums(token: string, id: string, pref = new GetAlbumPref()):
       }
     })
     .then(result => {
-      if (result.res.statusCode != HTTP.OK) {
+      if (result.res.statusCode !== HTTP.OK) {
         let msg = `Couldn't get artists's albums: ${result.res.statusCode}`
         log.error(msg);
         throw new Error();

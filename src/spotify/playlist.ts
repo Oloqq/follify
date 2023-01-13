@@ -3,17 +3,17 @@ import log from "../logs";
 import HTTP from "../HttpStatusCode"
 import { splitArray } from "../utils";
 
-function bearer(token: string) {
+function bearer(token: string): any {
   return {
-    'Authorization': 'Bearer ' + token,
-    'Content-Type': 'application/json'
-  }
+    "Authorization": "Bearer " + token,
+    "Content-Type": "application/json"
+  };
 }
 
 export interface PlaylistOptions {
-  name: string,
-  description: string,
-  public: boolean,
+  name: string;
+  description: string;
+  public: boolean;
 }
 
 const maxAllowedBySpotify = 100;
@@ -23,7 +23,7 @@ export async function createPlaylist(userId: string, token: string, opts: Playli
 
   // token = token ? token : await getToken(userId);
   let result = await urllib.request(`https://api.spotify.com/v1/users/${userId}/playlists`, {
-    method: 'POST',
+    method: "POST",
     headers: bearer(token),
     data: {
       "name": opts.name,
@@ -32,7 +32,7 @@ export async function createPlaylist(userId: string, token: string, opts: Playli
     }
   });
 
-  if (result.res.statusCode != HTTP.CREATED) {
+  if (result.res.statusCode !== HTTP.CREATED) {
     log.error(`Couldn't create playlist: ${result.res.statusCode}, ` +
       `user=${userId}, playlist name=${opts.name}`)
     return;
@@ -53,14 +53,14 @@ export async function addTracksToPlaylist(playlist: string, tracks: string[], to
   }
 
   let result = await urllib.request(`https://api.spotify.com/v1/playlists/${playlist}/tracks`, {
-    method: 'POST',
+    method: "POST",
     headers: bearer(token),
     data: {
-      'uris': tracks
+      "uris": tracks
     }
   });
 
-  if (result.res.statusCode != HTTP.CREATED) {
+  if (result.res.statusCode !== HTTP.CREATED) {
     log.error(`Couldn't add to playlist: ${result.res.statusCode}: ${result.data.toString()} playlist=${playlist} tracks=${tracks}`);
     throw new Error(`Couldn't add to playlist: ${result.res.statusCode}: ${result.data.toString()} playlist=${playlist} tracks=${tracks}`);
   }

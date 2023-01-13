@@ -8,7 +8,7 @@ import authorizator from "../authorization";
 export function initRoutes(app: Express) {
   app.get("/panel", (req: Request, res: Response) => {
     res.sendFile(`${global.appRoot}/views/panel.html`);
-  })
+  });
 
   app.get("/artistsalbums", (req: Request, res: Response) => {
     if (req.session.userId === undefined) {
@@ -28,7 +28,7 @@ export function initRoutes(app: Express) {
       .catch((err) => {
         console.log(err);
       })
-  })
+  });
 
   app.get("/following", (req: Request, res: Response) => {
     if (req.session.userId === undefined) {
@@ -48,12 +48,12 @@ export function initRoutes(app: Express) {
       .catch((err) => {
         console.log(err);
       })
-  })
+  });
 
   app.get("/inc", (req: Request, res: Response) => {
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-    if (req.session.num == undefined) {
+    if (req.session.num === undefined) {
       req.session.num = 1;
       res.send(req.session.num + "");
     }
@@ -66,7 +66,7 @@ export function initRoutes(app: Express) {
   app.get("/dec", (req: Request, res: Response) => {
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-    if (req.session.num == undefined) {
+    if (req.session.num === undefined) {
       req.session.num = 0;
       res.send(req.session.num + "");
     }

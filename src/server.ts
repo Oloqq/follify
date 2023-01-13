@@ -1,6 +1,5 @@
 import env from "./environment";
 import express from "express";
-import { Request, Response } from "express";
 import session from "cookie-session";
 import cors from "cors";
 import path from "path"

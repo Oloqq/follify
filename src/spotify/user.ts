@@ -51,7 +51,7 @@ async function getFollowingBatch(token: string, after: string | undefined, limit
         }
       })
 
-    if (result.res.statusCode != HTTP.OK) {
+    if (result.res.statusCode !== HTTP.OK) {
       let msg = `Couldn't get following: ${result.res.statusCode}`
       log.error(msg);
       throw new Error();

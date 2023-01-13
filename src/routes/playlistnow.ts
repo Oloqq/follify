@@ -10,16 +10,14 @@ import moment from "moment";
 import * as spotify from "../spotify/api";
 import { createPlaylist, addTracksToPlaylist, PlaylistOptions } from "../spotify/playlist";
 
-const description = "Created by Follify!\nhttps://github.com/Oloqq/follify";
-
 function extractPeriod(user: string, rq: any): DateSpan {
-  if (rq.startDate && rq.startDate != "" && rq.endDate && rq.endDate != "") {
+  if (rq.startDate && rq.startDate !== "" && rq.endDate && rq.endDate !== "") {
     return new DateSpan(rq.startDate, rq.endDate);
   }
   else {
     // TODO make database call for config
     log.warn("Defaulting period");
-    const monthBack = moment().subtract(1, 'month');
+    const monthBack = moment().subtract(1, "month");
     const now = moment();
     return new DateSpan(SpotiDate.fromMoment(monthBack), SpotiDate.fromMoment(now));
   }
@@ -27,9 +25,9 @@ function extractPeriod(user: string, rq: any): DateSpan {
 
 function extractPlaylistMeta(rq: any, period: DateSpan): PlaylistOptions {
   return {
-    name: typeof rq != "object" || !rq.name || rq.name == "" ? `Follify! ${period}` : rq.name,
-    description: typeof rq != "object" ? rq.description : rq.description, //undefined is fine
-    public: (typeof rq == "object" && rq.public && rq.public != "false") ? true : false, //ternary operator is necessary because javascript prefers evaluation to undefined instead of false
+    name: typeof rq !== "object" || !rq.name || rq.name === "" ? `Follify! ${period}` : rq.name,
+    description: typeof rq !== "object" ? rq.description : rq.description, //undefined is fine
+    public: (typeof rq === "object" && rq.public && rq.public !== "false") ? true : false, //ternary operator is necessary because javascript prefers evaluation to undefined instead of false
   };
 }
 

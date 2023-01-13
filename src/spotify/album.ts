@@ -26,7 +26,7 @@ export function getTracks(token: string, id: string): Promise<Track[]> {
       }
     })
     .then(result => {
-      if (result.res.statusCode != HTTP.OK) {
+      if (result.res.statusCode !== HTTP.OK) {
         let msg = `Couldn't get album's tracks: ${result.res.statusCode}`
         log.error(msg);
         throw new Error();

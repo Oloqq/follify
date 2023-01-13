@@ -32,7 +32,7 @@ function askForToken(data: TokenRqData): Promise<SpotifyTokens> {
       }
     })
       .then((result) => {
-        if (result.res.statusCode != HTTP.OK) {
+        if (result.res.statusCode !== HTTP.OK) {
           reject(result.res);
         }
         const response = JSON.parse(result.data.toString())
@@ -54,10 +54,10 @@ export function requestToken(code: string, callback: string = env.callback): Pro
   })
 }
 
-export function refreshToken(refreshToken: string): Promise<SpotifyTokens> {
+export function refreshToken(refrToken: string): Promise<SpotifyTokens> {
   return askForToken({
     grant_type: "refresh_token",
-    refresh_token: refreshToken,
+    refresh_token: refrToken,
   });
 }
 
