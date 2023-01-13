@@ -6,8 +6,8 @@ import * as spotify from "../spotify/api";
 import authorizator from "../authorization";
 
 export function initRoutes(app: Express) {
-  app.get("/", (req: Request, res: Response) => {
-    res.sendFile(`${global.appRoot}/views/index.html`);
+  app.get("/panel", (req: Request, res: Response) => {
+    res.sendFile(`${global.appRoot}/views/panel.html`);
   })
 
   app.get("/artistsalbums", (req: Request, res: Response) => {
