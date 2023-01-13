@@ -1,4 +1,4 @@
-import {Title, Subtitle, MainWrapper, Person, PhotoContainer, Photo, Name, Desc, HeaderContainer, Par } from './AboutUsElements';
+import {Title, Subtitle, MainWrapper, Person, PhotoContainer, Photo, Name, Desc, HeaderContainer, Par, Line } from './AboutUsElements';
 import person from '../../images/person.png';
 
 
@@ -14,6 +14,7 @@ function AboutUs() {
             <MainWrapper>
                 <Person>
                     <Name>Olgierd</Name>
+                    <Line></Line>
                     <PhotoContainer>
                         <Photo src={person} alt='person'/>
                     </PhotoContainer>
@@ -25,6 +26,7 @@ function AboutUs() {
                 </Person>
                 <Person>
                     <Name>Kuba</Name>
+                    <Line></Line>
                     <PhotoContainer>
                         <Photo src={person} alt='person'/>
                     </PhotoContainer>
@@ -36,6 +38,7 @@ function AboutUs() {
                 </Person>
                 <Person>
                     <Name>Jan</Name>
+                    <Line></Line>
                     <PhotoContainer>
                         <Photo src={person} alt='person'/>
                     </PhotoContainer>
@@ -47,6 +50,7 @@ function AboutUs() {
                 </Person>
                 <Person>
                 <Name>Marcin</Name>
+                <Line></Line>
                 <PhotoContainer>
                         <Photo src={person} alt='person'/>
                     </PhotoContainer>

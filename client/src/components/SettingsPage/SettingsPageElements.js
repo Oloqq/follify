@@ -65,8 +65,6 @@ export const Title = styled.div`
     margin-top 30px;
 `
 
-// ======== NEW LAYOUT ========
-
 export const MainWrapper = styled.div`
     display: flex;
     flex-direction: row;
@@ -212,7 +210,6 @@ export const Form = styled.form`
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-
     background-color: white;
     
 `
@@ -222,9 +219,7 @@ export const FormRight = styled.form`
     align-items: center;
     flex-direction: column;
     padding: 0 10px;
-
     background-color: #1ED760;
-    
 `
 
 export const Dates = styled.div`
@@ -235,8 +230,6 @@ export const Dates = styled.div`
     gap: 1rem;
     background-color: white;
 `
-
-
 
 export const FormContainer = styled.div`
     display: flex;
@@ -251,11 +244,6 @@ export const DateWrapper = styled.div`
     background-color: white;
 `
 
-export const ButtonWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-`
-
 export const Img = styled.img`
     width: 300px;
     height: auto;
@@ -265,7 +253,6 @@ export const Img = styled.img`
     vertical-align: top;
     display: inline-block;
     max-height: 500px;
-    // background-color: #f5f5f5;
 `;
 
 export const Counter = styled.span`

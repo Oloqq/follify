@@ -1,12 +1,13 @@
 import styled, { createGlobalStyle } from 'styled-components';
+import { WHITE, LIGHT_BLUE, BLUE, FIOLET } from './colors';
 
 const GlobalStyle = createGlobalStyle`
     * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
-        background-color: #3C2F3D;
         position: relative;
+        background-color: #3C2F3D;
     }
 `
 

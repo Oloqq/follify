@@ -2,14 +2,13 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 50px;
+    height: 20px;
     background-color: white;
-    position: relative;
-    bottom: -22vh;
-    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    z-index: 999;
 `
 
 export const Par = styled.p`

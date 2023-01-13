@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { Nav, NavbarContainer, NavIcon, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, NavItemBtn, NavBtn, NavItemSettings, Button} from './navbarElements';
+import { Nav, NavbarContainer, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, NavItemBtn, NavBtn, NavItemSettings, Button} from './navbarElements';
 import { IconContext } from 'react-icons/lib';
 
 
 const Navbar = () => {
 
     function login() {
-        fetch("http://localhost:5000/login", { method: "GET", credentials: "include", mode: "cors" })
+        fetch(process.env.REACT_APP_PATH, { 
+            method: "GET", 
+            credentials: "include", 
+            mode: "cors" })
         .then(res => res.json())
         .then(data => {
             window.location.href = data.redirectUrl;
@@ -64,11 +67,15 @@ const Navbar = () => {
                             <NavItemBtn>
                                 {button ? (
                                     <NavBtn>
-                                        <Button primary onClick={login}>Log In</Button>
+                                        <Button primary onClick={login}>
+                                            Log In
+                                        </Button>
                                     </NavBtn>
                                 ) : (
                                         <NavBtn>
-                                            <Button primary onClick={login}>Log In</Button>
+                                            <Button primary onClick={login}>
+                                                Log In
+                                            </Button>
                                     </NavBtn>
                                 )}
                             </NavItemBtn>

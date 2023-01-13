@@ -2,17 +2,19 @@ import styled from 'styled-components';
 import { Container } from '../../globalStyles';
 import { FaMagento } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { WHITE, LIGHT_BLUE, BLUE, DARK_BLUE, FIOLET, PINK } from '../../colors';
+
 
 export const Nav = styled.nav`
-    background: #3C2F3D;
-    height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.2rem;
     position: sticky;
+    height: 80px;
     top: 0;
     z-index: 999;
+    background-color: ${FIOLET};
+    font-size: 1.2rem;
 `
 
 export const NavbarContainer = styled(Container)`
@@ -20,8 +22,6 @@ export const NavbarContainer = styled(Container)`
     flex-direction: row;
     justify-content: space-between;
     height: 80px;
-
-    ${Container}
 `
 
 export const NavLogo = styled(Link)`

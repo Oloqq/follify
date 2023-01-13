@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { WHITE, LIGHT_BLUE, BLUE, DARK_BLUE, FIOLET, PINK, DARK } from '../../colors';
 
 export const HeaderContainer = styled.div`
     display: flex;
@@ -9,7 +10,7 @@ export const HeaderContainer = styled.div`
 `
 
 export const Title = styled.h1`
-    color: white;
+    color: ${DARK_BLUE};
     font-size: 50px;
     font-weight: 500;
     padding: 1rem 0;
@@ -17,7 +18,7 @@ export const Title = styled.h1`
 `
 
 export const Subtitle = styled.h4`
-    color: white;
+    color: ${FIOLET};
     flex-basis: auto;
     font-size: 21px;
     font-weight: 200;
@@ -33,11 +34,6 @@ export const MainWrapper = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     gap: 2rem;
-
-    @media screen and (max-width: 819px) {
-        // flex-wrap: wrap;
-        // flex-direction: column;
-    }
 `
 
 export const Person = styled.div`
@@ -46,26 +42,26 @@ export const Person = styled.div`
     justify-content: center;
     align-items: center;
 
-    background-color: white;
+    background-color: ${LIGHT_BLUE};
     border-radius: 20px;
 
-    -webkit-box-shadow: 0px 8px 13px -1px rgba(66, 68, 90, 1);
-    -moz-box-shadow: 0px 8px 13px -1px rgba(66, 68, 90, 1);
-    box-shadow: 0px 8px 13px -1px rgba(66, 68, 90, 1);
+    -webkit-box-shadow: 0px 4px 10px -1px rgba(169, 169, 171, 1);
+    -moz-box-shadow: 0px 4px 10px -1px rgba(169, 169, 171, 1);
+    box-shadow: 0px 4px 10px -1px rgba(169, 169, 171, 1);
 
 `
 
 export const Name = styled.h4`
     font-size: 23px;
     font-weitght: 300;
-    color: #3C2F3D;
+    color: ${DARK};
     padding: 1rem 0 0.5rem 0;
 
-    background-color: white;
+    background-color: ${LIGHT_BLUE};
 `
 
 export const PhotoContainer = styled.div`
-    background-color: white;
+    background-color: ${LIGHT_BLUE};
     padding: 1rem;
 `
 
@@ -73,6 +69,7 @@ export const Photo = styled.img`
     border-radius: 50%;
     width: 200px;
     height: auto;
+    background-color: ${LIGHT_BLUE};
 `
 
 export const Desc = styled.div`
@@ -80,12 +77,18 @@ export const Desc = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: white;
     padding: 1rem 0;
+    background-color: ${LIGHT_BLUE};
+    color: ${DARK_BLUE};
 `
 
 export const Par = styled.p`
     color: #3C2F3D;
-    background-color: white;
+    background-color: ${LIGHT_BLUE};
     padding: 0.1rem;
+`
+export const Line = styled.div`
+    background-color: ${WHITE};
+    width: 60%;
+    height: 3px;
 `
