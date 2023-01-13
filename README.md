@@ -1,47 +1,53 @@
-# Setup
+# Hosting locally
 
-1. install Node.js https://nodejs.org/en/
-2. clone repo `git clone https://github.com/Oloqq/follify.git`
-3. backend
-   * go to root folder (contains `tsconfig.json`)
-   * `npm install`
-   * necessary directories should be created during the first bootup, if something fails create the following in root directory:
-     * `.data`
-     * `logs`
-   * create `.env` file and set up the variables (see class Environment in `src/environment.ts`)
-     * see sample file below
-     * SESSION_SECRET is arbitrary
-     * SPOTIFY variables: set up an app on `https://developer.spotify.com/dashboard/login` or DM me for keys. Those not to be shared anywhere.
-4. frontend
-   * `cd client`
-   * `npm install`
+## Prerequisites
+1. Install Node.js: https://nodejs.org/en/
+2. Get a Spotify account
+### Register your app interacting with Spotify API:
+1. Go to `https://developer.spotify.com/dashboard/applications`
+2. *Create an app*, then in it's overview go to *EDIT SETTINGS*
+3. Add those as **Redirect URIs**, remember to actually click *Add*
+   - `http://localhost:5000/callback`
+   - `http://localhost:5000/panelcallback`
+4. *SAVE*
 
-### Sample `.env`
-```
-NODE_ENV=dev
-PORT=5000
-SPOTIFY_CLIENT_ID=
-SPOTIFY_CLIENT_SECRET=
-CALLBACK=http://localhost:5000/callback
-FRONTEND=http://localhost:3000
-SESSION_SECRET=
-```
+## Before first run
+1. Make sure npm is installed: `npm --version`
+2. Go to project root and `npm install`
+3. Rename `envtemplate` to `.env`
+4. Replace placeholder `!!!` with Client ID and Client Secret from `https://developer.spotify.com/dashboard/applications`.
 
-# Running
-* start backend through `npm start` in the root folder
-  * now you should be able to open http://localhost:5000 in a browser and see an ugly page sent from the backend
-* start frontend
-  * open another terminal (vscode is great with that)
-  * `cd client`
-  * `npm start`
-  * now you should be able to open http://localhost:3000 and see the page made with react
-  * verify that the two can communicate by pressing the inc button and checking if any button changes it's label
-* at any point you can run unit tests with `npm test` in the root folder
-  * those are tests for the backend, you have to figure out frontend tests yourself
-  * if possible, `jest` is nice as it generates code coverage reports
+## Run
+1. Go to project root and `npm start`
 
 # Development
-1. cały frontend jest w folderze `client`
-2. przy konfliktach na pushu lepiej żeby git robił rebase niż merge, zalatwia to komenda:<br>`git config --global pull.rebase true`
-3. pamietajcie zeby swoje zmiany robic na branchach i laczyc z masterem dopiero jak cos sensownego bedzie gotowe. przed mergem z masterem zpullujcie go
-4. przed pushem na masterze upewnijcie sie ze apka sie buduje
+## Setup
+1. Perform the steps described in *Hosting locally* section
+2. Go to `/client` and `npm install` to prepare React app for development
+3. Adjust environment variables (`.env`) to use React's port during development
+   1. Alternatively, each time you update React app `npm build` and copy `client/build` folder to `src/views`
+
+## Run
+1. Open two terminals
+2. First terminal - backend:
+   - Go to project root and `npm start`
+   - You should see a line similar to this: \
+   `18:49:28.735 INFO  Follify back-end started on port 5000`
+   - Done!
+3. Second terminal - frontend:
+   - Go to `/client` and `npm start`
+   - You should see something similar to code block below
+   - React page should automatically open in your browser. If not, go to `http://localhost:3000`
+  ```
+  Compiled successfully!
+
+  You can now view follify in the browser.
+
+    Local:            http://localhost:3000
+    On Your Network:  http://192.168.8.162:3000
+
+  Note that the development build is not optimized.
+  To create a production build, use npm run build.
+
+  webpack compiled successfully
+  ```
