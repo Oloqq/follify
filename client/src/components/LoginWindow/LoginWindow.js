@@ -5,12 +5,13 @@ import { Img, MainWrapper } from '../LandingPage/LandingPageElements';
 import { Par, Href } from '../LoginWindow/LoginWindowElements';
 
 const LoginWindow = () => {
+
     function login() {
         fetch("http://localhost:5000/login", { method: "GET", credentials: "include", mode: "cors" })
         .then(res => res.json())
         .then(data => {
-          console.log("body", data.redirectUrl);
-        window.location.href = data.redirectUrl;
+            console.log("body", data.redirectUrl);
+            window.location.href = data.redirectUrl;
         });
     }
 
