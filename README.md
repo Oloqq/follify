@@ -55,11 +55,12 @@
 
 # Deployment
 
-1. Build the React app by running `npm run build` in `client`
-2. Copy `client/build` to `src/views`
-3. Run deployment script with `npm run deploy`. The script will output complete compiled app in `dist`.
-4. The script will force-push contents of `dist` to a github repo so that it can be imported on a hosting service. Edit `deploy.js` to change that repo's link or disable that behavior.
-5. Import the packaged code on your hosting service
-6. Set environment variables by analogy to those in `.env`. Set `NODE_ENV=production`
-7. Install dependencies with `npm install`
-8. Start the app with `npm start`
+1. Set `REACT_APP_PATH` in `client/.env` to url of your deployed app.
+2. Build the React app by running `npm run build` in `client`
+3. Copy `client/build` to `src/views`. This step is not automated in case React app contains experimental changes.
+4. Run deployment script with `npm run deploy`. The script will output complete compiled app in `dist`.
+5. The script will force-push contents of `dist` to a github repo so that it can be imported on a hosting service. Edit `deploy.js` to change that repo's link or disable that behavior.
+6. Import the packaged code on your hosting service
+7. Set environment variables by analogy to those in `.env`. Set `NODE_ENV=production`
+8. Install dependencies with `npm install`
+9. Start the app with `npm start`
