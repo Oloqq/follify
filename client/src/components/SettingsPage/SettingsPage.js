@@ -23,7 +23,7 @@ function SettingsPage() {
     }
 
     function submit(e) {
-        fetch(`{process.env.REACT_APP_PATH}/playlistnow`, {
+        fetch(process.env.REACT_APP_PATH + "/playlistnow", {
             method: "POST", 
             credentials: "include", 
             mode: "cors",
@@ -43,7 +43,7 @@ function SettingsPage() {
     }
 
     function defaultconfig() {
-        fetch(`{process.env.REACT_APP_PATH}/setup`, {
+        fetch(process.env.REACT_APP_PATH + "/defaultconfig", {
             method: "GET", 
             credentials: "include", 
             mode: "cors"})
@@ -55,7 +55,7 @@ function SettingsPage() {
     }
 
     function saveConfig(e) {
-        fetch(`{process.env.REACT_APP_PATH}/config`, {
+        fetch(process.env.REACT_APP_PATH + "/config", {
             method: "POST", 
             credentials: "include", 
             mode: "cors",
@@ -76,7 +76,7 @@ function SettingsPage() {
     }
 
     function getConfig() {
-        fetch(`{process.env.REACT_APP_PATH}/config`, {
+        fetch(process.env.REACT_APP_PATH + "/config", {
             method: "GET", 
             credentials: "include", 
             mode: "cors"})
@@ -129,7 +129,7 @@ function SettingsPage() {
                                 <Option value="30" label='30'></Option>
                             </DataList>
                             <CheckboxLabel right htmlFor="sub">Subscribed:</CheckboxLabel>
-                            <Checkbox right defaultChecked type="checkbox" id="sub" onChange={(e) => handle(e)} value={data.subscribed}></Checkbox>
+                            <Checkbox right defaultChecked type="checkbox" id="subscribed" onChange={(e) => handle(e)} value={data.subscribed}></Checkbox>
                             <Btn type='submit'>Save configuration</Btn>
                             <Btn onClick={defaultconfig}>Restore defaults</Btn>
                         </FormRight>

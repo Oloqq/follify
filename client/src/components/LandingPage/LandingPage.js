@@ -7,7 +7,10 @@ import { Img, MainWrapper, Href } from './LandingPageElements';
 function LandingPage() {
 
     function login() {
-        fetch("http://localhost:5000/login", { method: "GET", credentials: "include", mode: "cors" })
+        fetch(process.env.REACT_APP_PATH + "/login", { 
+            method: "GET", 
+            credentials: "include", 
+            mode: "cors" })
         .then(res => res.json())
         .then(data => {
             window.location.href = data.redirectUrl;

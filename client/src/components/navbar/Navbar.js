@@ -7,7 +7,7 @@ import { IconContext } from 'react-icons/lib';
 const Navbar = () => {
 
     function login() {
-        fetch(process.env.REACT_APP_PATH, { 
+        fetch(process.env.REACT_APP_PATH + "/login", { 
             method: "GET", 
             credentials: "include", 
             mode: "cors" })
